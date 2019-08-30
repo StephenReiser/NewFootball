@@ -172,7 +172,7 @@ class Player extends Component {
             //     <td><button onClick = {() => this.undoButton()}>Undo</button></td>
                 
             // </tr>
-            <div className = 'col m5 playerSummary'>
+            <div className = 'col m5 s12 playerSummary'>
             <>
 {this.state.details ?
      <PlayerCardDetails 
