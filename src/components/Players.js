@@ -29,6 +29,9 @@ class Players extends Component {
                         <th>RushYard</th>
                         <th>TotalTD</th>
                         <th>ProjPt</th>
+                        <th>DKSalary</th>
+                        <th>25Percentile</th>
+                        <th>75Percentile</th>
                         <th></th>
                     </tr>
                 </thead>

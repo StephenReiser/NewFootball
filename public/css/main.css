@@ -23,4 +23,17 @@ table {
 
 th {
     white-space: nowrap;
+   
+  -o-transform: rotate(300deg); /*Opera*/
+  -moz-transform: rotate(300deg); /*Firefox*/
+  -ms-transform: rotate(-120deg); /*IE*/
+  -webkit-transform: rotate(300deg); /*Safari*/
+  transform: rotate(300deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); /*Internet Explorer*/
+  -ms-writing-mode: bt-lr;
+  writing-mode: bt-lr;
+  position: relative; /* must have this whenever z-index is used */
+  white-space: nowrap;
+  z-index: 1; /* positioned under z-index:2 */
 }
+

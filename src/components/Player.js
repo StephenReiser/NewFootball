@@ -157,6 +157,9 @@ class Player extends Component {
                 <td>{rushYards}</td>
                 <td>{totalTD}</td>
                 <td>{projPts}</td>
+                <td>{this.props.snapCounts.DKSalary === 'notonslate' ? 'NO' : this.props.snapCounts.DKSalary}</td>
+                <td>{this.props.snapCounts.BottomTwentyFive}</td>
+                <td>{this.props.snapCounts.TopTwentyFive}</td>
                 <td><button onClick = {() => this.undoButton()}>Undo</button></td>
                 
             </tr>
