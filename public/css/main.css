@@ -37,3 +37,18 @@ th {
   z-index: 1; /* positioned under z-index:2 */
 }
 
+.gamecard {
+    border: 1px solid black;
+    height: 250px;
+    padding: 2px;
+    margin: 2px;
+}
+
+.gameHeader {
+    font-size: 14px;
+    text-decoration: underline
+}
+
+.playerSummary {
+    border: 1px solid black
+}

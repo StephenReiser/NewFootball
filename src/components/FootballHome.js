@@ -3,8 +3,9 @@ import snapCounts from '../csv/2018SnapCounts'
 import gameSummary from '../csv/2019GameSummary'
 import teamSummary from '../csv/2019TeamSummary'
 
-import GameSummary from './GameSummary'
-import Players from './Players'
+import GameSummary from './Games/GameSummary'
+import Players from './Players/Players'
+
 
 
 
@@ -64,13 +65,14 @@ loadExternalFiles () {
     render() {
         return(
             <div>
-
+                
                 {this.state.gameInfo ? 
                 <>
                 <GameSummary gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary} updateTeamData = {this.updateTeamData}/>
                 <h1>Snap Counts</h1>
 
                 {/* I think plan is to set state to one of these and then filter based on that  */}
+                <button>DK Elligible</button>
                 <button>Flex</button>
                 <button>WR</button>
                 <button>RB</button>

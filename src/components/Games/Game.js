@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Input from './Input'
+import Input from '../Input'
 
 class Game extends Component {
 
