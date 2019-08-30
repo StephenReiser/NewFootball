@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { HorizontalBar } from 'react-chartjs-2';
+import { HorizontalBar, Line, Bar,  } from 'react-chartjs-2';
+import 'chartjs-plugin-datalabels';
 
 
 // const data = {
@@ -43,7 +44,7 @@ import { HorizontalBar } from 'react-chartjs-2';
 //         return(
 //             <div>
 //         <h2>Line Example</h2>
-//         <Bar ref="chart" data={data} />
+//         <Line ref="chart" data={data} />
 //       </div>
 //         )
 //     }
@@ -56,12 +57,12 @@ const barChartData = {
     labels: [ 'Range'],
     datasets: [
     {
-    label: 'Minimum',
+    labels: 'Minimum',
     backgroundColor: '#ffffff',
-    borderSkipped: 'right',
+    // borderSkipped: 'right',
     borderColor: '#000000',
     borderWidth: 2,
-    stack: '2',
+    // stack: '2',
     data: [],
     },
     {
@@ -69,15 +70,15 @@ const barChartData = {
     backgroundColor: '#ffffff',
     borderColor: '#000000',
     borderWidth: 2,
-    stack: '2',
+    // stack: '2',
     data: [],
     },
     {
         label: 'Maximum',
         backgroundColor: '#ffffff',
-        stack: '2',
+        // stack: '2',
         borderColor: '#000000',
-        borderSkipped: 'left',
+        // borderSkipped: 'left',
         borderWidth: 2,
         data: [],
         },
@@ -85,18 +86,26 @@ const barChartData = {
     };
     
     const barChartOptions = {
+        plugins: {
+            datalabels: {
+               display: true,
+               color: 'black',
+               align: 'right'
+            }
+         },
+         aspectRatio: 1,
     legend: {
     display: false,
     },
     scales: {
     xAxes: [
     {
-    stacked: true,
+    // stacked: true,
     },
     ],
     yAxes: [
     {
-    stacked: true,
+    // stacked: true,
     // display: false
     },
     ],
@@ -104,43 +113,24 @@ const barChartData = {
     };
 
     class PlayerChart extends Component {
-        constructor(props) {
-            super(props)
-            this.state = {
-                min: 0,
-                max: 0,
-                proj: 0
-            }
-        }
-        componentDidMount () {
-            this.setDataPoints()
-        }
-
-        componentWillRecieveProps(newProps){
-            // if(newProps.labels && newProps.data) {
-            //      if(barChart){barChart.destroy()};
-            //      this.createBarChart(newProps.labels, newProps.data)
-            // }
-            console.log(newProps)
-       }
-        setDataPoints () {
-            this.setState({
-                min: this.props.minScore,
-                max: this.props.maxScore,
-                proj: this.props.projPts
-            }) 
-        }
+        
 
         render() {
             barChartData.datasets[0].data[0] = this.props.minScore
             barChartData.datasets[1].data[0] = this.props.projPts
             barChartData.datasets[2].data[0] = this.props.maxScore
+            
             return(
-                <div>
-                <h2>Line Example</h2>
-                <HorizontalBar ref="chart" data={barChartData} options={barChartOptions} redraw/>
+                <div className = 'chartContainer'>
+                
+                <Line ref="chart" data={barChartData} options={barChartOptions}  
+                height={null}
+                width={null}
+                redraw/>
                 </div>
             )
         }
+
+
     }
     export default PlayerChart

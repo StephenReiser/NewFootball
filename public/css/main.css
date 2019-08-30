@@ -51,7 +51,15 @@ th {
 
 .playerSummary {
     border: 1px solid black;
-    height: 900px;
+    height: 600px;
     padding: 2px;
     margin: 2px;
+}
+
+
+
+
+.chartContainer {
+    max-width: 35%;
+    min-height: 100px;
 }
