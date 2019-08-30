@@ -7,7 +7,7 @@ class PlayerCardDetails extends Component {
             <div className = 'row'>
                 <div className = 'col s12'>
                 <h5 className = 'playerHeader'>{this.props.name} ({this.props.pos})</h5>
-                <h5 className = 'playerSalary'>{this.props.dkSalary}</h5>
+                <h5 className = 'playerPts'>Proj Pts: {this.props.projPts}</h5>
                 </div>
                 <div className = 'col s4'>
                     <label for = 'snapPercent'>Snap %
