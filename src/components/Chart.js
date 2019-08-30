@@ -104,6 +104,33 @@ const barChartData = {
     };
 
     class PlayerChart extends Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                min: 0,
+                max: 0,
+                proj: 0
+            }
+        }
+        componentDidMount () {
+            this.setDataPoints()
+        }
+
+        componentWillRecieveProps(newProps){
+            // if(newProps.labels && newProps.data) {
+            //      if(barChart){barChart.destroy()};
+            //      this.createBarChart(newProps.labels, newProps.data)
+            // }
+            console.log(newProps)
+       }
+        setDataPoints () {
+            this.setState({
+                min: this.props.minScore,
+                max: this.props.maxScore,
+                proj: this.props.projPts
+            }) 
+        }
+
         render() {
             barChartData.datasets[0].data[0] = this.props.minScore
             barChartData.datasets[1].data[0] = this.props.projPts
@@ -111,7 +138,7 @@ const barChartData = {
             return(
                 <div>
                 <h2>Line Example</h2>
-                <HorizontalBar ref="chart" data={barChartData} options={barChartOptions} />
+                <HorizontalBar ref="chart" data={barChartData} options={barChartOptions} redraw/>
                 </div>
             )
         }

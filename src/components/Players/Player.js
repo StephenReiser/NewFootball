@@ -65,6 +65,8 @@ class Player extends Component {
         this.setState({[event.target.id]: event.target.value});
       }
 
+    //   can I make handle change constantly update our state???
+
       handleSubmit() {
         //   event.preventDefault()
           console.log(this.state)
