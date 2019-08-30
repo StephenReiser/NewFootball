@@ -172,21 +172,42 @@ class Player extends Component {
             //     <td><button onClick = {() => this.undoButton()}>Undo</button></td>
                 
             // </tr>
-            <div className = 'col m6 playerSummary'>
-            <PlayerCardSummary 
-            name = {this.props.snapCounts.Player}
-            pos = {this.props.snapCounts.Pos}
-            targets = {targets}
-            catches = {catches}
-            recYards = {recYards}
-            rushYards = {rushYards}
-            totalTD = {totalTD}
-            projPts = {projPts}
-            dkSalary = {this.props.snapCounts.DKSalary === 'notonslate' ? 'NO' : this.props.snapCounts.DKSalary}
-            bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
-            topTwentyFive = {this.props.snapCounts.TopTwentyFive}
-            handleChange = {this.handleChange}
-        />
+            <div className = 'col m5 playerSummary'>
+            <>
+{this.state.details ?
+     <PlayerCardDetails 
+     handleChange = {this.handleChange}
+     snapPercent = {this.state.snapPercent}
+     snapPerRoute = {this.state.snapPerRoute}
+     tgtPerRoute = {this.state.tgtPerRoute}
+     catchPerc = {this.state.catchPerc}
+     rushPerc = {this.state.rushPerc}
+     recTdPerc = {this.state.recTdPerc}
+     rushTdPerc = {this.state.rushTdPerc}
+     name = {this.props.snapCounts.Player}
+     pos = {this.props.snapCounts.Pos}
+     projPts = {projPts}
+     bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
+     topTwentyFive = {this.props.snapCounts.TopTwentyFive}
+     /> 
+: 
+    <PlayerCardSummary 
+        name = {this.props.snapCounts.Player}
+        pos = {this.props.snapCounts.Pos}
+        targets = {targets}
+        catches = {catches}
+        recYards = {recYards}
+        rushYards = {rushYards}
+        totalTD = {totalTD}
+        projPts = {projPts}
+        dkSalary = {this.props.snapCounts.DKSalary === 'notonslate' ? 'NO' : this.props.snapCounts.DKSalary}
+        bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
+        topTwentyFive = {this.props.snapCounts.TopTwentyFive}
+        handleChange = {this.handleChange}
+    />
+}
+
+</>
 
         <button onClick = {() => this.showDetails()}>Player Details</button>
         <button onClick = {() => this.undoButton()}>Undo</button>

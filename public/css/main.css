@@ -50,5 +50,8 @@ th {
 }
 
 .playerSummary {
-    border: 1px solid black
+    border: 1px solid black;
+    height: 350px;
+    padding: 2px;
+    margin: 2px;
 }
