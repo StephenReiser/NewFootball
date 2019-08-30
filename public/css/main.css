@@ -51,9 +51,9 @@ th {
 
 .playerSummary {
     border: 1px solid black;
-    height: 600px;
+    height: 425px;
     padding: 2px;
-    margin: 2px;
+    /* margin: 2px; */
 }
 
 

@@ -67,8 +67,8 @@ const barChartData = {
     },
     {
     label: 'Average',
-    backgroundColor: '#ffffff',
-    borderColor: '#000000',
+    backgroundColor: '#008000',
+    borderColor: '#008000',
     borderWidth: 2,
     // stack: '2',
     data: [],

@@ -183,7 +183,7 @@ class Player extends Component {
             //     <td><button onClick = {() => this.undoButton()}>Undo</button></td>
                 
             // </tr>
-            <div className = 'col m5 s12 playerSummary'>
+            <div className = 'col m3 s12 playerSummary'>
             <>
 {this.state.details ?
      <PlayerCardDetails 
@@ -225,7 +225,7 @@ class Player extends Component {
          minScore = {this.props.snapCounts.BottomTwentyFive}
         maxScore = {this.props.snapCounts.TopTwentyFive}/>
         : null }
-        <button onClick = {() => this.showDetails()}>Player Details</button>
+        <button onClick = {() => this.showDetails()}>{this.state.details ? "Player Summary" : "Player Details"}</button>
         <button onClick = {() => this.undoButton()}>Undo</button>
         
         </div>

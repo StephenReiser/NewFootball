@@ -9,7 +9,7 @@ class PlayerCardDetails extends Component {
                 <h5 className = 'playerHeader'>{this.props.name} ({this.props.pos})</h5>
                 <h5 className = 'playerPts'>Proj Pts: {this.props.projPts}</h5>
                 </div>
-                <div className = 'col s4'>
+                <div className = 'col s3'>
                     <label for = 'snapPercent'>Snap %
                         <Input 
                             name={'snapPercent'}
@@ -19,8 +19,8 @@ class PlayerCardDetails extends Component {
                         />
                     </label>
                 </div>
-                <div className = 'col s4'>
-                    <label for = 'snapPerRoute'> Snap Per Route
+                <div className = 'col s3'>
+                    <label for = 'snapPerRoute'> S/Rte
                         <Input 
                             name={'snapPerRoute'}
                             id={'snapPerRoute'}
@@ -29,8 +29,8 @@ class PlayerCardDetails extends Component {
                         />
                     </label>
                 </div>
-                <div className = 'col s4'>
-                    <label for = 'tgtPerRoute'>Tgt Per Route
+                <div className = 'col s3'>
+                    <label for = 'tgtPerRoute'>Tgt / Rte
                         <Input 
                             name={'tgtPerRoute'}
                             id={'tgtPerRoute'}
@@ -39,8 +39,8 @@ class PlayerCardDetails extends Component {
                         />
                     </label>
                 </div>
-                <div className = 'col s4'>
-                    <label for = 'catchPerc'>Catch Rate
+                <div className = 'col s3'>
+                    <label for = 'catchPerc'>Catch %
                         <Input 
                             name={'catchPerc'}
                             id={'catchPerc'}
@@ -49,7 +49,7 @@ class PlayerCardDetails extends Component {
                         />
                     </label>
                 </div>
-                <div className = 'col s4'>
+                <div className = 'col s3'>
                     <label for = 'rushPerc'>Rush %
                         <Input 
                             name={'rushPerc'}
@@ -59,8 +59,8 @@ class PlayerCardDetails extends Component {
                         />
                     </label>
                 </div>
-                <div className = 'col s4'>
-                    <label for = 'recTdPerc'>Rec TD %
+                <div className = 'col s3'>
+                    <label for = 'recTdPerc'>RecTD %
                         <Input 
                             name={'recTdPerc'}
                             id={'recTdPerc'}
@@ -69,8 +69,8 @@ class PlayerCardDetails extends Component {
                         />
                     </label>
                 </div>
-                <div className = 'col s4'>
-                    <label for = 'rushTdPerc'>Rush TD %
+                <div className = 'col s3'>
+                    <label for = 'rushTdPerc'>RuTD %
                         <Input 
                             name={'rushTdPerc'}
                             id={'rushTdPerc'}
