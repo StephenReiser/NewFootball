@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Input from '../Input'
 import PlayerCardSummary from './PlayerCardSummary'
 import PlayerCardDetails from './PlayerCardDetails'
+import PlayerChart from '../Chart';
+
+
 
 class Player extends Component {
     constructor(props) {
@@ -17,6 +20,10 @@ class Player extends Component {
             details: false
         }
         this.showDetails = this.showDetails.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.undoButton = this.undoButton.bind(this)
+        
     }
 
     componentDidMount() {
@@ -29,9 +36,9 @@ class Player extends Component {
             recTdPerc: this.props.snapCounts.RecTDPerc,
             rushTdPerc: this.props.snapCounts.RushTdPerc
         })
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.undoButton = this.undoButton.bind(this)
+
+        
+        
         
         
         
@@ -63,6 +70,8 @@ class Player extends Component {
           console.log(this.state)
       }
 
+
+      
     render() {
         
             
@@ -208,9 +217,15 @@ class Player extends Component {
 }
 
 </>
-
+{this.state.details ? 
+        <PlayerChart
+         projPts = {projPts}
+         minScore = {this.props.snapCounts.BottomTwentyFive}
+        maxScore = {this.props.snapCounts.TopTwentyFive}/>
+        : null }
         <button onClick = {() => this.showDetails()}>Player Details</button>
         <button onClick = {() => this.undoButton()}>Undo</button>
+        
         </div>
         )
     }
@@ -221,25 +236,3 @@ export default Player
 
 
 
-{/* <>
-{this.state.details ?
-     <PlayerCardDetails 
-     /> 
-: 
-    <PlayerCardSummary 
-        name = {this.props.snapCounts.Player}
-        pos = {this.props.snapCounts.Pos}
-        targets = {targets}
-        catches = {catches}
-        recYards = {recYards}
-        rushYards = {rushYards}
-        totalTD = {totalTD}
-        projPts = {projPts}
-        dkSalary = {this.props.snapCounts.DKSalary === 'notonslate' ? 'NO' : this.props.snapCounts.DKSalary}
-        bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
-        topTwentyFive = {this.props.snapCounts.TopTwentyFive}
-        handleChange = {this.handleChange}
-    />
-}
-
-</> */}
