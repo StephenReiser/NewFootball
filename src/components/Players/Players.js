@@ -57,12 +57,43 @@ class Players extends Component {
                             const playerTeamData = this.props.teamSummary.find((team) => {
                                 return team.Team === player.Team
                             })
-                            return(
-                                
-                                    <Player snapCounts = {player} teamData = {playerTeamData}/>
-                                    
-                                
-                            )
+                            const originalSnaps = this.props.orignalSnapCounts.find((originalPlayer) => {
+                                return originalPlayer.Player === player.Player
+                            })
+                            // using a conditional to render the correct stuff
+                                if (this.props.positions === 'ALL') {
+                                    return( <Player snapCounts = {player} teamData = {playerTeamData}
+                                    updatePlayerData = {this.props.updatePlayerData}
+                                    originalPlayer = {originalSnaps}
+                                    />
+                                    )
+                                }
+                                else if (this.props.positions === 'FLEX') {
+                                    if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
+                                        return(
+                                            
+                                                <Player snapCounts = {player} teamData = {playerTeamData}
+                                                updatePlayerData = {this.props.updatePlayerData}
+                                                originalPlayer = {originalSnaps}
+                                                />
+                                                
+                                            
+                                        )
+                                        }
+                                }
+                                else {
+                                    if (player.Pos === this.props.positions) {
+                                    return(
+                                        
+                                            <Player snapCounts = {player} teamData = {playerTeamData}
+                                            updatePlayerData = {this.props.updatePlayerData}
+                                            originalPlayer = {originalSnaps}
+                                            />
+                                            
+                                        
+                                    )
+                                    }
+                        }
     
                         })}
                         </div>

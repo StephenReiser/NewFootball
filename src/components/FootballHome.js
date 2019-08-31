@@ -15,11 +15,14 @@ class FootballHome extends Component {
         this.state = {
             snapCounts: [],
             // gameInfo: [],
-            teamSummary: []
+            teamSummary: [],
+            positions: 'ALL'
         }
         this.testButton = this.testButton.bind(this)
         this.updateTeamData = this.updateTeamData.bind(this)
         this.loadExternalFiles = this.loadExternalFiles.bind(this)
+        this.updatePlayerData = this.updatePlayerData.bind(this)
+        this.setPositions = this.setPositions.bind(this)
 
     }
     componentDidMount() {
@@ -59,8 +62,28 @@ loadExternalFiles () {
         })
 
     }
+    updatePlayerData (newPlayer) {
+        const copyPlayerInfo = [...this.state.snapCounts]
+        
+
+        const playerIndex = this.state.snapCounts.findIndex(player => player.Player === newPlayer.Player )
+
+        
+        copyPlayerInfo[playerIndex] = newPlayer
+        
+
+        this.setState({
+            snapCounts: copyPlayerInfo
+        })
+    }
     testButton () {
         console.log(this.state)
+    }
+
+    setPositions (changedPosition) {
+        this.setState({
+            positions: changedPosition
+        })
     }
     render() {
         return(
@@ -73,13 +96,20 @@ loadExternalFiles () {
 
                 {/* I think plan is to set state to one of these and then filter based on that  */}
                 <button>DK Elligible</button>
-                <button>Flex</button>
-                <button>WR</button>
-                <button>RB</button>
-                <button>TE</button>
-                <button>ALL</button>
+                <button onClick = {() => this.setPositions('FLEX')}>Flex</button>
+                <button onClick = {() => this.setPositions('WR')}>WR</button>
+                <button onClick = {() => this.setPositions('RB')}>RB</button>
+                <button onClick = {() => this.setPositions('TE')}>TE</button>
+                <button onClick = {() => this.setPositions('ALL')}>ALL</button>
+                <br />
+                <button>Sort Most Points</button>
+                <button>Sort Highest Price</button>
             
-            <Players snapCounts= {this.state.snapCounts} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}/>
+            <Players snapCounts= {this.state.snapCounts} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
+            updatePlayerData = {this.updatePlayerData}
+            orignalSnapCounts = {this.state.orignalSnapCounts}
+            positions = {this.state.positions}
+            />
             {/* <button onClick = {() => this.testButton()}>Test Butotn</button> */}
                  </>
             

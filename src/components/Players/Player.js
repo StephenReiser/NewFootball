@@ -43,8 +43,21 @@ class Player extends Component {
         
         
         
-       
     }
+    handleSubmit() {
+        //   event.preventDefault()
+        let newPlayer = this.props.snapCounts
+        newPlayer.SnapPercent = this.state.snapPercent
+        newPlayer.snapPerRoute = this.state.snapPerRoute
+        newPlayer.TgtPerRoute = this.state.tgtPerRoute
+        newPlayer.CatchPerc = this.state.catchPerc
+        newPlayer.RushPercent = this.state.rushPerc
+        newPlayer.RecTDPerc = this.state.recTdPerc
+        newPlayer.RushTdPerc = this.state.rushTdPerc
+        console.log(newPlayer)
+        this.props.updatePlayerData(newPlayer)
+
+        }
     showDetails () {
         this.setState({
             details: !this.state.details
@@ -53,14 +66,15 @@ class Player extends Component {
 
     undoButton() {
         this.setState({
-            snapPercent: this.props.snapCounts.SnapPercent,
-            snapPerRoute: this.props.snapCounts.SnapPerRoute,
-            tgtPerRoute: this.props.snapCounts.TgtPerRoute,
-            catchPerc: this.props.snapCounts.CatchPerc,
-            rushPerc: this.props.snapCounts.RushPercent,
-            recTdPerc: this.props.snapCounts.RecTDPerc,
-            rushTdPerc: this.props.snapCounts.RushTdPerc
+            snapPercent: this.props.originalPlayer.SnapPercent,
+            snapPerRoute: this.props.originalPlayer.SnapPerRoute,
+            tgtPerRoute: this.props.originalPlayer.TgtPerRoute,
+            catchPerc: this.props.originalPlayer.CatchPerc,
+            rushPerc: this.props.originalPlayer.RushPercent,
+            recTdPerc: this.props.originalPlayer.RecTDPerc,
+            rushTdPerc: this.props.originalPlayer.RushTdPerc
         })
+        this.props.updatePlayerData(this.props.originalPlayer)
     }
     handleChange(event) {
         this.setState({[event.target.id]: event.target.value});
@@ -68,10 +82,7 @@ class Player extends Component {
 
     //   can I make handle change constantly update our state???
 
-      handleSubmit() {
-        //   event.preventDefault()
-          console.log(this.state)
-      }
+    
 
 
       
@@ -234,6 +245,7 @@ class Player extends Component {
 //         : null } */}
         <button onClick = {() => this.showDetails()}>{this.state.details ? "Player Summary" : "Player Details"}</button>
         <button onClick = {() => this.undoButton()}>Undo</button>
+        <button onClick = {() => this.handleSubmit()}>Save</button>
         
         </div>
         )
