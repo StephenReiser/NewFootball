@@ -3,6 +3,7 @@ import Input from '../Input'
 import PlayerCardSummary from './PlayerCardSummary'
 import PlayerCardDetails from './PlayerCardDetails'
 import PlayerChart from '../Chart';
+import LazyLoad from 'react-lazyload';
 
 
 
@@ -219,12 +220,18 @@ class Player extends Component {
 }
 
 </>
-{this.state.details ? 
-        <PlayerChart
+<LazyLoad offset={100}>
+    <PlayerChart
          projPts = {projPts}
          minScore = {this.props.snapCounts.BottomTwentyFive}
         maxScore = {this.props.snapCounts.TopTwentyFive}/>
-        : null }
+      </LazyLoad>
+{/* // {this.state.details ? 
+//         <PlayerChart
+//          projPts = {projPts}
+//          minScore = {this.props.snapCounts.BottomTwentyFive}
+//         maxScore = {this.props.snapCounts.TopTwentyFive}/>
+//         : null } */}
         <button onClick = {() => this.showDetails()}>{this.state.details ? "Player Summary" : "Player Details"}</button>
         <button onClick = {() => this.undoButton()}>Undo</button>
         
