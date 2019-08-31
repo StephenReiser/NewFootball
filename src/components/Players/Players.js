@@ -2,11 +2,33 @@ import React, { Component } from 'react'
 
 import Player from './Player.js'
 
+
 class Players extends Component {
-    componentDidMount () {
-        console.log(this.props)
+    constructor(props) {
+        super(props)
+        this.state = {
+            playerList: []
+        }
     }
+    // componentWillMount () {
+    //     // console.log(this.props)
+    //     let currentPlayers = []
+    //     if (this.props.positions === 'WR') {
+    //         currentPlayers = this.props.snapCounts.filter(player => player.Pos === 'WR')
+
+    //     } else {
+    //         currentPlayers = this.props.snapCounts
+    //     }
+    //     this.setState ({
+    //         playerList: currentPlayers
+    //     })
+        
+    // }
     render() {
+        
+        
+        
+
         return(
 
             // <table className = 'striped highlight '>
@@ -61,40 +83,45 @@ class Players extends Component {
                                 return originalPlayer.Player === player.Player
                             })
                             // using a conditional to render the correct stuff
-                                if (this.props.positions === 'ALL') {
-                                    return( <Player snapCounts = {player} teamData = {playerTeamData}
-                                    updatePlayerData = {this.props.updatePlayerData}
-                                    originalPlayer = {originalSnaps}
-                                    />
-                                    )
-                                }
-                                else if (this.props.positions === 'FLEX') {
-                                    if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
-                                        return(
-                                            
-                                                <Player snapCounts = {player} teamData = {playerTeamData}
-                                                updatePlayerData = {this.props.updatePlayerData}
-                                                originalPlayer = {originalSnaps}
-                                                />
-                                                
-                                            
-                                        )
-                                        }
-                                }
-                                else {
-                                    if (player.Pos === this.props.positions) {
-                                    return(
-                                        
-                                            <Player snapCounts = {player} teamData = {playerTeamData}
-                                            updatePlayerData = {this.props.updatePlayerData}
-                                            originalPlayer = {originalSnaps}
-                                            />
-                                            
-                                        
-                                    )
-                                    }
-                        }
-    
+                                
+                            if (this.props.positions === 'ALL') {
+    return(
+         
+            <Player snapCounts = {player} teamData = {playerTeamData}
+            updatePlayerData = {this.props.updatePlayerData}
+            originalPlayer = {originalSnaps}
+            />
+        
+    )
+}
+else if (this.props.positions === 'FLEX') {
+    if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
+        return(
+            
+                <Player snapCounts = {player} teamData = {playerTeamData}
+                updatePlayerData = {this.props.updatePlayerData}
+                originalPlayer = {originalSnaps}
+                />
+               
+                
+            
+        )
+        }
+}
+else {
+    if (player.Pos === this.props.positions) {
+    return(
+        
+            <Player snapCounts = {player} teamData = {playerTeamData}
+            updatePlayerData = {this.props.updatePlayerData}
+            originalPlayer = {originalSnaps}
+            />
+            
+            
+        
+    )
+    }
+}
                         })}
                         </div>
             
@@ -102,3 +129,39 @@ class Players extends Component {
     }
 }
 export default Players
+
+
+
+// if (this.props.positions === 'ALL') {
+//     return( <Player snapCounts = {player} teamData = {playerTeamData}
+//     updatePlayerData = {this.props.updatePlayerData}
+//     originalPlayer = {originalSnaps}
+//     />
+//     )
+// }
+// else if (this.props.positions === 'FLEX') {
+//     if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
+//         return(
+            
+//                 <Player snapCounts = {player} teamData = {playerTeamData}
+//                 updatePlayerData = {this.props.updatePlayerData}
+//                 originalPlayer = {originalSnaps}
+//                 />
+                
+            
+//         )
+//         }
+// }
+// else {
+//     if (player.Pos === this.props.positions) {
+//     return(
+        
+//             <Player snapCounts = {player} teamData = {playerTeamData}
+//             updatePlayerData = {this.props.updatePlayerData}
+//             originalPlayer = {originalSnaps}
+//             />
+            
+        
+//     )
+//     }
+// }

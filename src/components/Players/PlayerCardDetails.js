@@ -10,7 +10,7 @@ class PlayerCardDetails extends Component {
                 <h5 className = 'playerPts'>Proj Pts: {this.props.projPts}</h5>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'snapPercent'>Snap %
+                    <label htmlFor = 'snapPercent'>Snap %
                         <Input 
                             name={'snapPercent'}
                             id={'snapPercent'}
@@ -20,7 +20,7 @@ class PlayerCardDetails extends Component {
                     </label>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'snapPerRoute'> S/Rte
+                    <label htmlFor = 'snapPerRoute'> S/Rte
                         <Input 
                             name={'snapPerRoute'}
                             id={'snapPerRoute'}
@@ -30,7 +30,7 @@ class PlayerCardDetails extends Component {
                     </label>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'tgtPerRoute'>Tgt / Rte
+                    <label htmlFor = 'tgtPerRoute'>Tgt / Rte
                         <Input 
                             name={'tgtPerRoute'}
                             id={'tgtPerRoute'}
@@ -40,7 +40,7 @@ class PlayerCardDetails extends Component {
                     </label>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'catchPerc'>Catch %
+                    <label htmlFor = 'catchPerc'>Catch %
                         <Input 
                             name={'catchPerc'}
                             id={'catchPerc'}
@@ -50,7 +50,7 @@ class PlayerCardDetails extends Component {
                     </label>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'rushPerc'>Rush %
+                    <label htmlFor = 'rushPerc'>Rush %
                         <Input 
                             name={'rushPerc'}
                             id={'rushPerc'}
@@ -60,7 +60,7 @@ class PlayerCardDetails extends Component {
                     </label>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'recTdPerc'>RecTD %
+                    <label htmlFor = 'recTdPerc'>RecTD %
                         <Input 
                             name={'recTdPerc'}
                             id={'recTdPerc'}
@@ -70,7 +70,7 @@ class PlayerCardDetails extends Component {
                     </label>
                 </div>
                 <div className = 'col s3'>
-                    <label for = 'rushTdPerc'>RuTD %
+                    <label htmlFor = 'rushTdPerc'>RuTD %
                         <Input 
                             name={'rushTdPerc'}
                             id={'rushTdPerc'}

@@ -231,7 +231,7 @@ class Player extends Component {
 }
 
 </>
-<LazyLoad offset={100}>
+<LazyLoad offset={100} once={false}>
     <PlayerChart
          projPts = {projPts}
          minScore = {this.props.snapCounts.BottomTwentyFive}
