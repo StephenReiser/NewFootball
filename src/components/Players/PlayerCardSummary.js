@@ -27,7 +27,7 @@ class PlayerCardSummary extends Component {
             <>
                 <h5 className = 'playerHeader'>{this.props.name} ({this.props.pos})</h5>
                 <h5 className = 'playerSalary'>{this.props.dkSalary}</h5>
-                <h5 className = 'playerPts'>Proj Pts: {this.props.projPts}</h5>
+                <h5 className = 'playerPts'>Proj Pts: {this.props.projPts} DKValue: {this.props.dkValue}</h5>
                 <div>Targets: {this.props.targets}</div>
                 <div>Catches: {this.props.catches}</div>
                 <div>recYards: {this.props.recYards}</div>

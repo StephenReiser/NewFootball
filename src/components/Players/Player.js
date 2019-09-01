@@ -58,10 +58,13 @@ class Player extends Component {
         // console.log('points:', points)
         
         // console.log(points)
-        
+        const value = (points/(Number(this.props.snapCounts.DKSalary)/1000)).toFixed(1)
+        // console.log('value', this.props.snapCounts.DKSalary)
+
         
         const newPlayer = this.props.snapCounts
         newPlayer.ProjPts = points
+        newPlayer.DKValue = value
         this.props.updatePlayerData(newPlayer)
         
         
@@ -100,6 +103,7 @@ class Player extends Component {
         const passTD = Number(this.state.recTdPerc) * Number(this.props.teamData.ExpectedTd) * Number(this.props.teamData.PassTdPerc)
 
         const points = (catches + (receivingYards + rushingPoints) / 10 + (rushTD + passTD) * 6).toFixed(1)
+        const value = (points/(Number(this.props.snapCounts.DKSalary)/1000)).toFixed(1)
 
         let newPlayer = this.props.snapCounts
         newPlayer.SnapPercent = this.state.snapPercent
@@ -110,6 +114,7 @@ class Player extends Component {
         newPlayer.RecTDPerc = this.state.recTdPerc
         newPlayer.RushTdPerc = this.state.rushTdPerc
         newPlayer.ProjPts = points
+        newPlayer.DKValue = value
         console.log(newPlayer)
         this.props.updatePlayerData(newPlayer)
 
@@ -268,6 +273,7 @@ class Player extends Component {
      projPts = {projPts}
      bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
      topTwentyFive = {this.props.snapCounts.TopTwentyFive}
+
      /> 
 : 
     <PlayerCardSummary 
@@ -279,7 +285,8 @@ class Player extends Component {
         rushYards = {rushYards}
         totalTD = {totalTD}
         projPts = {projPts}
-        dkSalary = {this.props.snapCounts.DKSalary === 'notonslate' ? 'NO' : this.props.snapCounts.DKSalary}
+        dkSalary = {this.props.snapCounts.DKSalary === '0' ? '0' : this.props.snapCounts.DKSalary}
+        dkValue = {this.props.snapCounts.DKSalary === '0' ? '0' : this.props.snapCounts.DKValue}
         bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
         topTwentyFive = {this.props.snapCounts.TopTwentyFive}
         handleChange = {this.handleChange}

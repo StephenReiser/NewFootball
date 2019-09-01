@@ -17,7 +17,8 @@ class FootballHome extends Component {
             // gameInfo: [],
             teamSummary: [],
             positions: 'ALL',
-            draftKings: false
+            draftKings: false,
+            
         }
         this.testButton = this.testButton.bind(this)
         this.updateTeamData = this.updateTeamData.bind(this)
@@ -26,6 +27,7 @@ class FootballHome extends Component {
         this.setPositions = this.setPositions.bind(this)
         this.sortProjPoints = this.sortProjPoints.bind(this)
         this.toggleDraftkings = this.toggleDraftkings.bind(this)
+        this.sortPriceValue = this.sortPriceValue.bind(this)
 
     }
     componentDidMount() {
@@ -110,6 +112,14 @@ loadExternalFiles () {
             draftKings: !this.state.draftKings
         })
     }
+    sortPriceValue (option) {
+        const sortedSnaps = this.state.snapCounts.sort((obj1, obj2) => {
+            return obj2[option] - obj1[option]
+        })
+        this.setState({
+            snapCounts: sortedSnaps
+        })
+    }
     render() {
         return(
             <div>
@@ -125,15 +135,22 @@ loadExternalFiles () {
                 <Switch offLabel="Off" onLabel="On" id={'draftKings'}
                 onChange = {() => this.toggleDraftkings()}/>
                 </label>
-                <button onClick = {() => this.setPositions('FLEX')}>Flex</button>
-                <button onClick = {() => this.setPositions('WR')}>WR</button>
-                <button onClick = {() => this.setPositions('RB')}>RB</button>
-                <button onClick = {() => this.setPositions('TE')}>TE</button>
-                <button onClick = {() => this.setPositions('ALL')}>ALL</button>
+                <button className = 'btn' onClick = {() => this.setPositions('FLEX')}>Flex</button>
+                <button className = 'btn' onClick = {() => this.setPositions('WR')}>WR</button>
+                <button className = 'btn' onClick = {() => this.setPositions('RB')}>RB</button>
+                <button className = 'btn' onClick = {() => this.setPositions('TE')}>TE</button>
+                <button className = 'btn' onClick = {() => this.setPositions('ALL')}>ALL</button>
+                <hr />
+                <button className = 'btn' onClick = {() => this.sortPoints()}>Sort Highest Points</button>
+                <button className = 'btn' onClick = {() => this.sortProjPoints()}>Sort Proj Points</button>
                 <br />
-                <button onClick = {() => this.sortPoints()}>Sort Highest Points</button>
-                <button onClick = {() => this.sortProjPoints()}>Sort Proj Points</button>
-                <button>Sort Highest Price - not working yet</button>
+                {this.state.draftKings ? <>
+                
+                    <button className = 'btn' onClick = {() => this.sortPriceValue('DKSalary')}>Sort Highest Price</button>
+                    <button className = 'btn' onClick = {() => this.sortPriceValue('DKValue')}>Sort Highest Value</button>
+                    
+                     </> : null}
+                
             
             <Players snapCounts= {this.state.snapCounts} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
             updatePlayerData = {this.updatePlayerData}

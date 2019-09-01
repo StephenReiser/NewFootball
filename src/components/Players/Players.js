@@ -28,7 +28,7 @@ class Players extends Component {
         let playerList = []
         if (this.props.draftKings) {
          playerList = this.props.snapCounts.filter((originalPlayer) => {
-            return originalPlayer.DKSalary !== "notonslate"
+            return originalPlayer.DKSalary !== "0"
         })
         } else {
          playerList = this.props.snapCounts
