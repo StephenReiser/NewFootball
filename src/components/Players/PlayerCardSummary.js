@@ -2,6 +2,26 @@ import React, { Component } from 'react'
 import Input from '../Input'
 
 class PlayerCardSummary extends Component {
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //         targets: 0,
+    //         catches: 0,
+    //         recYards: 0,
+    //         rushYards: 0,
+
+            
+    //     }
+    // }
+
+    // componentDidMount () {
+    //     this.setState({
+
+    //     })
+    // }
+    // componentWillReceiveProps() {
+
+    // }
     render() {
         return(
             <>

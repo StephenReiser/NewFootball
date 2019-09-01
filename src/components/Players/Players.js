@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import LazyLoad from 'react-lazyload';
 import Player from './Player.js'
 
 
@@ -25,8 +25,14 @@ class Players extends Component {
         
     // }
     render() {
-        
-        
+        let playerList = []
+        if (this.props.draftKings) {
+         playerList = this.props.snapCounts.filter((originalPlayer) => {
+            return originalPlayer.DKSalary !== "notonslate"
+        })
+        } else {
+         playerList = this.props.snapCounts
+        }
         
 
         return(
@@ -74,60 +80,57 @@ class Players extends Component {
                
             //    </tbody>
             // </table>
-<div className = 'row'>
-            {this.props.snapCounts.map((player) => {
-                            const playerTeamData = this.props.teamSummary.find((team) => {
-                                return team.Team === player.Team
-                            })
-                            const originalSnaps = this.props.orignalSnapCounts.find((originalPlayer) => {
-                                return originalPlayer.Player === player.Player
-                            })
-                            // using a conditional to render the correct stuff
-                                
-                            if (this.props.positions === 'ALL') {
-    return(
-         
-            <Player snapCounts = {player} teamData = {playerTeamData}
-            updatePlayerData = {this.props.updatePlayerData}
-            originalPlayer = {originalSnaps}
-            />
-        
-    )
-}
-else if (this.props.positions === 'FLEX') {
-    if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
-        return(
-            
-                <Player snapCounts = {player} teamData = {playerTeamData}
-                updatePlayerData = {this.props.updatePlayerData}
-                originalPlayer = {originalSnaps}
-                />
-               
+    <div className = 'row'>
+        {playerList.map((player) => {
+            const playerTeamData = this.props.teamSummary.find((team) => {
+                return team.Team === player.Team
+            })
+            const originalSnaps = this.props.orignalSnapCounts.find((originalPlayer) => {
+                return originalPlayer.Player === player.Player
+            })
+            // using a conditional to render the correct stuff
                 
-            
-        )
-        }
-}
-else {
-    if (player.Pos === this.props.positions) {
-    return(
+            if (this.props.positions === 'ALL') {
+                return(
         
-            <Player snapCounts = {player} teamData = {playerTeamData}
-            updatePlayerData = {this.props.updatePlayerData}
-            originalPlayer = {originalSnaps}
-            />
-            
-            
+                    <Player snapCounts = {player} teamData = {playerTeamData}
+                    updatePlayerData = {this.props.updatePlayerData}
+                    originalPlayer = {originalSnaps}
+                    />
         
-    )
-    }
-}
-                        })}
-                        </div>
-            
-        )
-    }
-}
+                )
+            }
+            else if (this.props.positions === 'FLEX') {
+                if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
+                    return(
+                        
+                            <Player snapCounts = {player} teamData = {playerTeamData}
+                            updatePlayerData = {this.props.updatePlayerData}
+                            originalPlayer = {originalSnaps}
+                            />
+                            
+                        
+                    )
+                }
+            }
+            else {
+                if (player.Pos === this.props.positions) {
+                return(
+                    
+                        <Player snapCounts = {player} teamData = {playerTeamData}
+                        updatePlayerData = {this.props.updatePlayerData}
+                        originalPlayer = {originalSnaps}
+                        />
+                         
+                    )
+                }
+            }
+            })}
+        </div>
+                        
+                    )
+                }
+            }
 export default Players
 
 

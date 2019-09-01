@@ -1,3 +1,5 @@
+@import "~react-vis/dist/style";
+
 .gameBox {
     border: 1px solid black;
 }
@@ -62,6 +64,7 @@ th {
 .chartContainer {
     max-width: 35%;
     min-height: 100px;
+    max-height: 100px;
 }
 
 .playerHeader, .playerSalary, .playerPts {

@@ -4,7 +4,7 @@ import PlayerCardSummary from './PlayerCardSummary'
 import PlayerCardDetails from './PlayerCardDetails'
 import PlayerChart from '../Chart';
 import LazyLoad from 'react-lazyload';
-
+import ChartOptionTwo from '../ChartOptionTwo'
 
 
 class Player extends Component {
@@ -18,6 +18,7 @@ class Player extends Component {
             rushPerc: 0,
             recTdPerc: 0,
             rushTdPerc: 0,
+            projPts: 0,
             details: false
         }
         this.showDetails = this.showDetails.bind(this)
@@ -27,7 +28,7 @@ class Player extends Component {
         
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             snapPercent: this.props.snapCounts.SnapPercent,
             snapPerRoute: this.props.snapCounts.SnapPerRoute,
@@ -38,22 +39,77 @@ class Player extends Component {
             rushTdPerc: this.props.snapCounts.RushTdPerc
         })
 
+
+        // THIS HAS GOT TO BE BAD - BUT IT IS SETTING THE POINTS ONCE WE LOAD THE DATA - ALSO ROUNDING IS SLIGHTLY DIFFERENT THAN WHAT IM CALCULATING BELOW
+        const catches = ((Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.props.snapCounts.SnapPerRoute) * Number(this.props.snapCounts.TgtPerRoute) * Number(this.props.snapCounts.CatchPerc))
+        
+        const receivingYards =  Number(this.props.snapCounts.YPRR) * Number(this.props.teamData.PassEff) * (Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.props.snapCounts.SnapPerRoute)
+
+        const rushingPoints = (Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.props.snapCounts.RushPercent) / 100 * Number(this.props.teamData.RushEff) * Number(this.props.snapCounts.YPC)
+
+        const rushTD = Number(this.props.snapCounts.RushTdPerc) * Number(this.props.teamData.ExpectedTd) * Number(this.props.teamData.RushTdPerc)
+
+        const passTD = Number(this.props.snapCounts.RecTDPerc) * Number(this.props.teamData.ExpectedTd) * Number(this.props.teamData.PassTdPerc)
+        // console.log(passingPoints, rushingPoints, rushTD, passTD)
+        // console.log((Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100 ), Number(this.props.snapCounts.SnapPerRoute) , Number(this.props.snapCounts.TgtPerRoute) , Number(this.props.snapCounts.CatchPerc) , Number(this.props.snapCounts.YPRR) , Number(this.props.teamData.PassEff))
+        
+        const points = (catches + (receivingYards + rushingPoints) / 10 + (rushTD + passTD) * 6).toFixed(1)
+
+        // console.log('points:', points)
+        
+        // console.log(points)
         
         
+        const newPlayer = this.props.snapCounts
+        newPlayer.ProjPts = points
+        this.props.updatePlayerData(newPlayer)
         
         
         
     }
+
+    componentWillReceiveProps(props) 
+   
+{
+    console.log(props)
+    this.setState({
+        snapPercent: props.snapCounts.SnapPercent,
+        snapPerRoute: props.snapCounts.SnapPerRoute,
+        tgtPerRoute: props.snapCounts.TgtPerRoute,
+        catchPerc: props.snapCounts.CatchPerc,
+        rushPerc: props.snapCounts.RushPercent,
+        recTdPerc: props.snapCounts.RecTDPerc,
+        rushTdPerc: props.snapCounts.RushTdPerc,
+
+    })
+} 
+    
+
+
     handleSubmit() {
         //   event.preventDefault()
+
+        const catches = ((Number(this.state.snapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.state.snapPerRoute) * Number(this.state.tgtPerRoute) * Number(this.state.catchPerc))
+        
+        const receivingYards =  Number(this.props.snapCounts.YPRR) * Number(this.props.teamData.PassEff) * (Number(this.state.snapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.state.snapPerRoute)
+
+        const rushingPoints = (Number(this.state.snapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.state.rushPerc) / 100 * Number(this.props.teamData.RushEff) * Number(this.props.snapCounts.YPC)
+
+        const rushTD = Number(this.state.rushTdPerc) * Number(this.props.teamData.ExpectedTd) * Number(this.props.teamData.RushTdPerc)
+
+        const passTD = Number(this.state.recTdPerc) * Number(this.props.teamData.ExpectedTd) * Number(this.props.teamData.PassTdPerc)
+
+        const points = (catches + (receivingYards + rushingPoints) / 10 + (rushTD + passTD) * 6).toFixed(1)
+
         let newPlayer = this.props.snapCounts
         newPlayer.SnapPercent = this.state.snapPercent
-        newPlayer.snapPerRoute = this.state.snapPerRoute
+        newPlayer.SnapPerRoute = this.state.snapPerRoute
         newPlayer.TgtPerRoute = this.state.tgtPerRoute
         newPlayer.CatchPerc = this.state.catchPerc
         newPlayer.RushPercent = this.state.rushPerc
         newPlayer.RecTDPerc = this.state.recTdPerc
         newPlayer.RushTdPerc = this.state.rushTdPerc
+        newPlayer.ProjPts = points
         console.log(newPlayer)
         this.props.updatePlayerData(newPlayer)
 
@@ -91,8 +147,8 @@ class Player extends Component {
             
             
             
-        const snaps = (this.props.teamData.Snaps * this.state.snapPercent / 100 ).toFixed(1)
-        const routes = (this.state.snapPerRoute * snaps).toFixed(1)
+        const snaps = (this.props.teamData.Snaps * this.state.snapPercent / 100 )
+        const routes = (this.state.snapPerRoute * snaps)
         const targets = (this.state.tgtPerRoute * routes).toFixed(1)
         const catches = (this.state.catchPerc * targets).toFixed(1)
         const recYards = (this.props.snapCounts.YPRR * routes * this.props.teamData.PassEff).toFixed(1)
@@ -231,12 +287,19 @@ class Player extends Component {
 }
 
 </>
-<LazyLoad offset={100} once={false}>
-    <PlayerChart
+ <LazyLoad once={true}>
+     <PlayerChart
          projPts = {projPts}
          minScore = {this.props.snapCounts.BottomTwentyFive}
         maxScore = {this.props.snapCounts.TopTwentyFive}/>
       </LazyLoad>
+
+      {/* <LazyLoad offset={100} once={false}>
+    <ChartOptionTwo
+         projPts = {projPts}
+         minScore = {this.props.snapCounts.BottomTwentyFive}
+        maxScore = {this.props.snapCounts.TopTwentyFive}/>
+      </LazyLoad> */}
 {/* // {this.state.details ? 
 //         <PlayerChart
 //          projPts = {projPts}
