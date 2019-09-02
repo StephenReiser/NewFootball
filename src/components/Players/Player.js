@@ -19,7 +19,8 @@ class Player extends Component {
             recTdPerc: 0,
             rushTdPerc: 0,
             projPts: 0,
-            details: false
+            details: false,
+            numberFirePots: 0
         }
         this.showDetails = this.showDetails.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -37,7 +38,8 @@ class Player extends Component {
             rushPerc: this.props.snapCounts.RushPercent,
             recTdPerc: this.props.snapCounts.RecTDPerc,
             rushTdPerc: this.props.snapCounts.RushTdPerc,
-            originalPlayerData: this.props.snapCounts
+            originalPlayerData: this.props.snapCounts,
+            numberFirePots: this.props.snapCounts.numberFirePots
         })
 
 // console.log('mounting comopnent')
@@ -73,7 +75,7 @@ class Player extends Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log('receiving props')
+        // console.log('receiving props')
     // console.log(props)
     this.setState({
         snapPercent: props.snapCounts.SnapPercent,
@@ -83,6 +85,7 @@ class Player extends Component {
         rushPerc: props.snapCounts.RushPercent,
         recTdPerc: props.snapCounts.RecTDPerc,
         rushTdPerc: props.snapCounts.RushTdPerc,
+        numberFirePots: props.snapCounts.numberFirePots
 
     })
 } 
@@ -257,7 +260,8 @@ class Player extends Component {
             //     <td><button onClick = {() => this.undoButton()}>Undo</button></td>
                 
             // </tr>
-            <div className = 'col m3 s12 playerSummary'>
+            // <div className = 'col m3 s12 playerSummary' key={this.props.snapCounts.Player}>
+            <>
             <>
 {this.state.details ?
      <PlayerCardDetails 
@@ -299,7 +303,8 @@ class Player extends Component {
      <PlayerChart
          projPts = {projPts}
          minScore = {this.props.snapCounts.BottomTwentyFive}
-        maxScore = {this.props.snapCounts.TopTwentyFive}/>
+        maxScore = {this.props.snapCounts.TopTwentyFive}
+        numberFirePots = {this.props.snapCounts.numberFirePots}/>
       </LazyLoad>
 
       {/* <LazyLoad offset={100} once={false}>
@@ -319,7 +324,8 @@ class Player extends Component {
         <button onClick = {() => this.handleSubmit()}>Save</button>
         <button onClick = {() => this.props.deletePlayer(this.props.snapCounts.Player)}>Delete Player</button>
         
-        </div>
+        {/* // </div> */}
+        </>
         )
     }
 }

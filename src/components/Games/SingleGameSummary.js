@@ -14,7 +14,7 @@ class SingleGameSummary extends Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log(props)
+        // console.log(props)
         this.setState({
             homeTotalPassPerc: props.homeTotalPassPerc,
             awayTotalPassPerc: props.awayTotalPassPerc,

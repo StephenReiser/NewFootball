@@ -42,8 +42,20 @@ class Players extends Component {
                 return players.Team === this.props.team
             })
         }
-        
 
+        let activePlayerList = []
+        if (this.props.active) {
+            activePlayerList = filteredPlayerList.filter((originalPlayer) => {
+                return originalPlayer.Active === "Active"
+                
+           })
+           } else {
+            activePlayerList = filteredPlayerList
+
+           }
+        
+        //    this.props.sumPlays(this.props.teamSummary, activePlayerList)
+        //    console.log('playerlist', activePlayerList)
         return(
 
             // <table className = 'striped highlight '>
@@ -90,7 +102,7 @@ class Players extends Component {
             //    </tbody>
             // </table>
     <div className = 'row'>
-        {filteredPlayerList.map((player) => {
+        {activePlayerList.map((player) => {
             const playerTeamData = this.props.teamSummary.find((team) => {
                 return team.Team === player.Team
             })
@@ -101,7 +113,7 @@ class Players extends Component {
                 
             if (this.props.positions === 'ALL') {
                 return(
-        
+                    <div className = 'col m3 s12 playerSummary' key={player.Player}>
                     <Player snapCounts = {player} teamData = {playerTeamData}
                     updatePlayerData = {this.props.updatePlayerData}
                     originalPlayer = {originalSnaps}
@@ -109,13 +121,13 @@ class Players extends Component {
                     fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
                     currentSnapCounts = {player}
                     />
-        
+        </div>
                 )
             }
             else if (this.props.positions === 'FLEX') {
                 if (player.Pos == 'WR' || player.Pos == 'RB' || player.Pos == 'TE') {
                     return(
-                        
+                        <div className = 'col m3 s12 playerSummary' key={player.Player}>
                             <Player snapCounts = {player} teamData = {playerTeamData}
                             updatePlayerData = {this.props.updatePlayerData}
                             originalPlayer = {originalSnaps}
@@ -124,7 +136,7 @@ class Players extends Component {
                             currentSnapCounts = {player}
 
                             />
-                            
+                            </div>
                         
                     )
                 }
@@ -132,7 +144,7 @@ class Players extends Component {
             else {
                 if (player.Pos === this.props.positions) {
                 return(
-                    
+                    <div className = 'col m3 s12 playerSummary' key={player.Player}>
                         <Player snapCounts = {player} teamData = {playerTeamData}
                         updatePlayerData = {this.props.updatePlayerData}
                         originalPlayer = {originalSnaps}
@@ -140,7 +152,7 @@ class Players extends Component {
                         fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
                         currentSnapCounts = {player}
                         />
-                         
+                         </div>
                     )
                 }
             }

@@ -32,17 +32,28 @@ class GameCard extends Component {
         this.handleClick = this.handleClick.bind(this)
     }
   componentWillReceiveProps (props) {
+      const newProps = props
+    //   console.log('received', props.home, props.home.TotalTeamRushPlays)
+    console.log('new props', newProps.home.Team, newProps.home)
+    const awayPassPerc = props.away.TotalTeamPassPlays / props.away.PassPlays
+    const homeRushPerc =  props.home.TotalTeamRushPlays / props.home.RushPlays
+    const awayRushPerc = props.away.TotalTeamRushPlays / props.away.RushPlays
+    const homePassPerc = props.home.TotalTeamPassPlays / props.home.PassPlays
       this.setState({
-        awayTotalPassPerc: props.away.TotalTeamPassPlays / props.away.PassPlays,
-        homeTotalRushPerc: props.home.TotalTeamRushPlays / props.home.RushPlays,
-        awayTotalRushPerc: props.away.TotalTeamRushPlays / props.away.RushPlays,
-        homeTotalPassPerc: props.home.TotalTeamPassPlays / props.home.PassPlays,
+          
+        awayTotalPassPerc: awayPassPerc,
+        homeTotalRushPerc: homeRushPerc,
+        awayTotalRushPerc: awayRushPerc,
+        homeTotalPassPerc: homePassPerc,
+        
+          
 
       })
   }
     componentDidMount(){
         // console.log(this.props.gameInfo)
         // console.log(this.props.home)
+        // console.log('...mounting')
         this.setState({
             homescore: this.props.gameInfo.HomeScore,
             homeSnaps: this.props.gameInfo.HomeSnaps,
@@ -60,6 +71,7 @@ class GameCard extends Component {
             homeTotalRushPerc: this.props.home.TotalTeamRushPlays / this.props.home.RushPlays,
             awayTotalRushPerc: this.props.away.TotalTeamRushPlays / this.props.away.RushPlays,
             homeTotalPassPerc: this.props.home.TotalTeamPassPlays / this.props.home.PassPlays,
+            
 
 
 
@@ -113,9 +125,15 @@ class GameCard extends Component {
         })
     }
     render() {
+        
+        
+
+
+            
         return(
             
                 <div className = 'col m6 s12'>
+                    
                     <div className='gamecard'>
                     {
                     this.state.details ?

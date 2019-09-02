@@ -5,6 +5,7 @@ import teamSummary from '../csv/2019TeamSummary'
 import { Switch } from 'react-materialize'
 import GameSummary from './Games/GameSummary'
 import Players from './Players/Players'
+import { tsImportEqualsDeclaration } from '@babel/types';
 
 
 
@@ -18,7 +19,9 @@ class FootballHome extends Component {
             teamSummary: [],
             positions: 'ALL',
             draftKings: false,
-            team: 'ALL'
+            team: 'ALL',
+            active: false,
+            fullPlayerList: []
             
         }
         this.testButton = this.testButton.bind(this)
@@ -36,6 +39,7 @@ class FootballHome extends Component {
         this.saveData = this.saveData.bind(this)
         this.loadData = this.loadData.bind(this)
         this.resetData = this.resetData.bind(this)
+        this.toggleActive = this.toggleActive.bind(this)
     }
     componentDidMount() {
        this.loadExternalFiles()
@@ -82,6 +86,7 @@ loadExternalFiles () {
     }
 
     sumPlays(teamData, playerData) {
+        console.log('sumplays playerdata', playerData)
         teamData.forEach(element => {
             element.TotalTeamPassPlays = 0
             element.TotalTeamRushPlays = 0
@@ -94,7 +99,7 @@ loadExternalFiles () {
                 element.TotalTeamPassPlays += Number(playerPassPlays.toFixed(.1))
                 }
             })
-        console.log(element)
+        // console.log(element)
     });
     }
 
@@ -151,7 +156,7 @@ loadExternalFiles () {
 
         copyPlayerInfo[playerIndex] = newPlayer
        
-        console.log('update player ran')
+        // console.log('update player ran')
 
         this.setState({
             playerSnapCounts: copyPlayerInfo,
@@ -187,6 +192,20 @@ loadExternalFiles () {
     toggleDraftkings () {
         this.setState({
             draftKings: !this.state.draftKings
+        })
+    }
+
+    toggleActive () {
+
+        const activePlayerList = this.state.playerSnapCounts.filter((originalPlayer) => {
+            return originalPlayer.Active === "Active"
+            
+       })
+        this.sumPlays(this.state.teamSummary, activePlayerList)
+        this.setState({
+            active: !this.state.active,
+            playerSnapCounts: activePlayerList
+
         })
     }
     sortPriceValue (option) {
@@ -250,6 +269,12 @@ loadExternalFiles () {
                 <Switch offLabel="Off" onLabel="On" id={'draftKings'}
                 onChange = {() => this.toggleDraftkings()}/>
                 </label>
+                <br />
+                <label htmlFor="active">
+                    Active:
+                <Switch offLabel="Off" onLabel="On" id={'active'}
+                onChange = {() => this.toggleActive()}/>
+                </label>
                 <button className = 'btn' onClick = {() => this.setPositions('FLEX')}>Flex</button>
                 <button className = 'btn' onClick = {() => this.setPositions('WR')}>WR</button>
                 <button className = 'btn' onClick = {() => this.setPositions('RB')}>RB</button>
@@ -275,6 +300,8 @@ loadExternalFiles () {
             deletePlayer = {this.deletePlayer}
             team = {this.state.team}
             fullUpdatePlayerData = {this.fullUpdatePlayerData}
+            active = {this.state.active}
+            sumPlays = {this.sumPlays}
             />
             {/* <button onClick = {() => this.testButton()}>Test Butotn</button> */}
                  </>

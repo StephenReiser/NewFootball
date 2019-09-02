@@ -3,11 +3,21 @@ import Game from './Game'
 import GameCard from './GameCard'
 
 class GameSummary extends Component {
-    componentDidMount() {
-        // console.log(this.props)
+    constructor(props) {
+        super(props)
+        this.state = {
+            // teamSummary: []
+        }
+    }
+    componentWillMount() {
+        this.setState({
+            teamSummary: this.props.teamSummary
+        })
     }
     componentWillReceiveProps(props) {
-        console.log('summmary', props)
+        this.setState({
+            teamSummary: props.teamSummary
+        })
     }
     render() {
         return(
@@ -15,20 +25,20 @@ class GameSummary extends Component {
                 
                 {this.props.gameInfo.map(game => {
 
-                    const homeData = this.props.teamSummary.find((team) => {
+                    const homeData = this.state.teamSummary.find((team) => {
                         return team.Team === game.Home
                     })
-                    const awayData = this.props.teamSummary.find((team) => {
+                    const awayData = this.state.teamSummary.find((team) => {
                         return team.Team === game.Away
                     })
 
                     return(
                         
-                            <>
+                            <div key = {game.Home}>
                             {/* <Game gameInfo = {game} home = {homeData} away = {awayData} updateTeamData = {this.props.updateTeamData}/> */}
                             <GameCard gameInfo = {game} home = {homeData} away = {awayData} updateTeamData = {this.props.updateTeamData}
-                            filterTeam = {this.props.filterTeam}/>
-                        </>
+                            filterTeam = {this.props.filterTeam} />
+                        </div>
                     )
                 })}
             </div>

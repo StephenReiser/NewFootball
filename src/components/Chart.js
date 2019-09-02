@@ -61,14 +61,16 @@ import 'chartjs-plugin-datalabels';
             this.state = {
                 avg: 0,
                 min: 0,
-                max: 0
+                max: 0,
+                numberFirePots: 0
             }
         }
         componentDidMount() {
             this.setState({
                 avg: this.props.projPts,
                 min: this.props.minScore,
-                max: this.props.maxScore
+                max: this.props.maxScore,
+                numberFirePots: this.props.numberFirePots
             })
         }
 
@@ -77,13 +79,15 @@ import 'chartjs-plugin-datalabels';
             this.setState({
                 avg: props.projPts,
                 min: props.minScore,
-                max: props.maxScore
+                max: props.maxScore,
+                numberFirePots: props.numberFirePots
             })
         }
         render() {
             
             const barChartData = {
                 labels: [ 'Range'],
+                defaultFontSize: '6px',
                 datasets: [
                     {
                         labels: 'Minimum',
@@ -103,6 +107,15 @@ import 'chartjs-plugin-datalabels';
                         data: [this.state.avg],
                     },
                     {
+                        label: 'NumebrFire',
+                        backgroundColor: '#FF0000',
+                        // stack: '2',
+                        borderColor: '#FF0000',
+                        // borderSkipped: 'left',
+                        borderWidth: 2,
+                        data: [this.props.numberFirePots],
+                    },
+                    {
                         label: 'Maximum',
                         backgroundColor: '#ffffff',
                         // stack: '2',
@@ -119,8 +132,10 @@ import 'chartjs-plugin-datalabels';
                         datalabels: {
                             display: true,
                             color: 'black',
-                            align: 'right'
-                        }
+                            align: 'right',
+                            
+                            
+                        },
                         },
                         aspectRatio: 1,
                 legend: {
