@@ -75,6 +75,32 @@ class Player extends Component {
     }
 
     componentWillReceiveProps(props) {
+        // THIS HAS GOT TO BE BAD - BUT IT IS SETTING THE POINTS ONCE WE LOAD THE DATA - ALSO ROUNDING IS SLIGHTLY DIFFERENT THAN WHAT IM CALCULATING BELOW
+        // const catches = ((Number(props.snapCounts.SnapPercent) * Number(props.teamData.Snaps) / 100) * Number(props.snapCounts.SnapPerRoute) * Number(props.snapCounts.TgtPerRoute) * Number(props.snapCounts.CatchPerc))
+        
+        // const receivingYards =  Number(props.snapCounts.YPRR) * Number(props.teamData.PassEff) * (Number(props.snapCounts.SnapPercent) * Number(props.teamData.Snaps) / 100) * Number(props.snapCounts.SnapPerRoute)
+
+        // const rushingPoints = (Number(props.snapCounts.SnapPercent) * Number(props.teamData.Snaps) / 100) * Number(props.snapCounts.RushPercent) / 100 * Number(props.teamData.RushEff) * Number(props.snapCounts.YPC)
+
+        // const rushTD = Number(props.snapCounts.RushTdPerc) * Number(props.teamData.ExpectedTd) * Number(props.teamData.RushTdPerc)
+
+        // const passTD = Number(props.snapCounts.RecTDPerc) * Number(props.teamData.ExpectedTd) * Number(props.teamData.PassTdPerc)
+        // // console.log(passingPoints, rushingPoints, rushTD, passTD)
+        // // console.log((Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100 ), Number(this.props.snapCounts.SnapPerRoute) , Number(this.props.snapCounts.TgtPerRoute) , Number(this.props.snapCounts.CatchPerc) , Number(this.props.snapCounts.YPRR) , Number(this.props.teamData.PassEff))
+        
+        // const points = (catches + (receivingYards + rushingPoints) / 10 + (rushTD + passTD) * 6).toFixed(1)
+
+        // // console.log('points:', points)
+        
+        // // console.log(points)
+        // const value = (points/(Number(this.props.snapCounts.DKSalary)/1000)).toFixed(1)
+        // // console.log('value', this.props.snapCounts.DKSalary)
+
+        
+        // const newPlayer = this.props.snapCounts
+        // newPlayer.ProjPts = points
+        // newPlayer.DKValue = value
+        // this.props.updatePlayerData(newPlayer)
         // console.log('receiving props')
     // console.log(props)
     this.setState({

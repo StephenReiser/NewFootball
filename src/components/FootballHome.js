@@ -42,12 +42,16 @@ class FootballHome extends Component {
         this.loadData = this.loadData.bind(this)
         this.resetData = this.resetData.bind(this)
         this.toggleActive = this.toggleActive.bind(this)
+        this.calculatePoints = this.calculatePoints.bind(this)
     }
     componentDidMount() {
        this.loadExternalFiles()
        
         
     }
+    componentWillReceiveProps(props) {
+        console.log('main received props')
+    } 
 loadExternalFiles () {
 
     const activePlayerList = snapCounts.filter((originalPlayer) => {
@@ -78,13 +82,32 @@ loadExternalFiles () {
 
         const awayIndex = this.state.teamSummary.findIndex(team => team.Team === updatedAway.Team)
 
+        
+        const copySnapCounts = [...this.state.playerSnapCounts]
+
+        for (let i = 0; i < copySnapCounts.length; i++) {
+            if(copySnapCounts[i].Team === updatedHome.Team) {
+                const newSnapCount = copySnapCounts[i]
+                this.calculatePoints(copySnapCounts[i], updatedHome)
+                console.log(newSnapCount)
+                copySnapCounts[i] = newSnapCount
+            } else if (copySnapCounts[i].Team === updatedAway.Team) {
+                const newSnapCount = copySnapCounts[i]
+                this.calculatePoints(copySnapCounts[i], updatedAway)
+                console.log(newSnapCount)
+                copySnapCounts[i] = newSnapCount
+            }
+        }
+        // console.log('team array', teamArray)
+
         copyGameInfo[gameIndex] = updatedGame
         copyTeamSummary[homeIndex] = updatedHome
         copyTeamSummary[awayIndex] = updatedAway
 
         this.setState({
             gameInfo: copyGameInfo,
-            teamSummary: copyTeamSummary
+            teamSummary: copyTeamSummary,
+            playerSnapCounts: copySnapCounts
         })
 
     }
@@ -158,6 +181,36 @@ loadExternalFiles () {
             
             }
         })
+    }
+
+    calculatePoints(mySnaps,myTeamData) {
+        console.log('mySnaps: ', mySnaps, 'myTeamData:', myTeamData)
+        const catches = ((Number(mySnaps.SnapPercent) * Number(myTeamData.Snaps) / 100) * Number(mySnaps.SnapPerRoute) * Number(mySnaps.TgtPerRoute) * Number(mySnaps.CatchPerc))
+        
+        const receivingYards =  Number(mySnaps.YPRR) * Number(myTeamData.PassEff) * (Number(mySnaps.SnapPercent) * Number(myTeamData.Snaps) / 100) * Number(mySnaps.SnapPerRoute)
+
+        const rushingPoints = (Number(mySnaps.SnapPercent) * Number(myTeamData.Snaps) / 100) * Number(mySnaps.RushPercent) / 100 * Number(myTeamData.RushEff) * Number(mySnaps.YPC)
+
+        const rushTD = Number(mySnaps.RushTdPerc) * Number(myTeamData.ExpectedTd) * Number(myTeamData.RushTdPerc)
+
+        const passTD = Number(mySnaps.RecTDPerc) * Number(myTeamData.ExpectedTd) * Number(myTeamData.PassTdPerc)
+        // console.log(passingPoints, rushingPoints, rushTD, passTD)
+        // console.log((Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100 ), Number(this.props.snapCounts.SnapPerRoute) , Number(this.props.snapCounts.TgtPerRoute) , Number(this.props.snapCounts.CatchPerc) , Number(this.props.snapCounts.YPRR) , Number(this.props.teamData.PassEff))
+        
+        const points = (catches + (receivingYards + rushingPoints) / 10 + (rushTD + passTD) * 6).toFixed(1)
+
+        // console.log('points:', points)
+        
+        // console.log(points)
+        const value = (points/(Number(mySnaps.DKSalary)/1000)).toFixed(1)
+        // console.log('value', this.props.snapCounts.DKSalary)
+
+        
+        const newPlayer = mySnaps
+        newPlayer.ProjPts = points
+        newPlayer.DKValue = value
+        return newPlayer
+        // this.props.updatePlayerData(newPlayer)
     }
 
 
@@ -275,8 +328,8 @@ loadExternalFiles () {
       };
     render() {
 
-        const indexOfLastPlayer = this.state.offset * 30;
-        const indexOfFirstPlayer = indexOfLastPlayer - 30;
+        const indexOfLastPlayer = this.state.offset * 32;
+        const indexOfFirstPlayer = indexOfLastPlayer - 32;
         const currentPlayers = this.state.playerSnapCounts.slice(indexOfFirstPlayer, indexOfLastPlayer);
         return(
             <div>
