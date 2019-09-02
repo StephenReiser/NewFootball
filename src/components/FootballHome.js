@@ -5,7 +5,8 @@ import teamSummary from '../csv/2019TeamSummary'
 import { Switch } from 'react-materialize'
 import GameSummary from './Games/GameSummary'
 import Players from './Players/Players'
-import { tsImportEqualsDeclaration } from '@babel/types';
+import ReactPaginate from 'react-paginate';
+
 
 
 
@@ -21,7 +22,8 @@ class FootballHome extends Component {
             draftKings: false,
             team: 'ALL',
             active: false,
-            fullPlayerList: []
+            fullPlayerList: [],
+            offset: 1,
             
         }
         this.testButton = this.testButton.bind(this)
@@ -262,7 +264,20 @@ loadExternalFiles () {
             gameInfo: loadedGameInfo
         })
     }
+    handlePageClick = data => {
+        let selected = data.selected;
+        console.log(data)
+        let offset = Math.ceil(selected + 1);
+    
+        this.setState({ offset: offset }, () => {
+        //   this.loadCommentsFromServer();
+        });
+      };
     render() {
+
+        const indexOfLastPlayer = this.state.offset * 30;
+        const indexOfFirstPlayer = indexOfLastPlayer - 30;
+        const currentPlayers = this.state.playerSnapCounts.slice(indexOfFirstPlayer, indexOfLastPlayer);
         return(
             <div>
                 <button className = 'btn' onClick = {() => this.saveData()}>Save Data</button>
@@ -303,8 +318,21 @@ loadExternalFiles () {
                     
                      </> : null}
                 
-            
-            <Players playerSnapCounts= {this.state.playerSnapCounts} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
+                     <div className="commentBox">
+                         <ReactPaginate
+                       previousLabel={'previous'}
+                       nextLabel={'next'}
+                       breakLabel={'...'}
+                       breakClassName={'break-me'}
+                       pageCount={this.state.pageCount}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       onPageChange={this.handlePageClick}
+                       containerClassName={'pagination'}
+                       subContainerClassName={'pages pagination'}
+                       activeClassName={'active'}
+                     />
+            <Players playerSnapCounts= {currentPlayers} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
             updatePlayerData = {this.updatePlayerData}
             orignalSnapCounts = {this.state.orignalSnapCounts}
             positions = {this.state.positions}
@@ -315,6 +343,7 @@ loadExternalFiles () {
             active = {this.state.active}
             sumPlays = {this.sumPlays}
             />
+        </div>
             {/* <button onClick = {() => this.testButton()}>Test Butotn</button> */}
                  </>
             
