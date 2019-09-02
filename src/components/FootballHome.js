@@ -148,6 +148,7 @@ loadExternalFiles () {
         // copyTeamSummary[teamIndex].TotalTeamRushPlays += (newPassPoints + newRushPoints - oldPassPoints - oldRushPoints)
         
         copyPlayerInfo[playerIndex] = newPlayer
+        this.sumPlays(this.state.teamSummary, copyPlayerInfo)
 
         this.setState((prevState, props) => {
             return{
@@ -155,7 +156,6 @@ loadExternalFiles () {
             
             }
         })
-        this.sumPlays(this.state.teamSummary, this.state.playerSnapCounts)
     }
 
 
@@ -235,7 +235,7 @@ loadExternalFiles () {
         const playerIndex = this.state.playerSnapCounts.findIndex(player => player.Player === playerName )
 
         copyPlayerInfo.splice(playerIndex,1)
-        
+        this.sumPlays(this.state.teamSummary, copyPlayerInfo)
         this.setState({
             playerSnapCounts: copyPlayerInfo
         })
