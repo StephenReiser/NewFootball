@@ -164,7 +164,7 @@ class GameCard extends Component {
                         awayTotalPassPerc = {this.state.awayTotalPassPerc}
                         homeTotalRushPerc = {this.state.homeTotalRushPerc}
                         awayTotalRushPerc = {this.state.awayTotalRushPerc}
-                        
+                        team = {this.props.team}
                         />
                     
                     }

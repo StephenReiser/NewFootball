@@ -47,13 +47,20 @@ class FootballHome extends Component {
         
     }
 loadExternalFiles () {
-    this.sumPlays(teamSummary, snapCounts)
+
+    const activePlayerList = snapCounts.filter((originalPlayer) => {
+        return originalPlayer.Active === "Active"
+        
+   })
+    this.sumPlays(teamSummary, activePlayerList)
+    
+    // this.sumPlays(teamSummary, snapCounts)
     this.setState({
-        playerSnapCounts: snapCounts,
+        playerSnapCounts: activePlayerList,
         teamSummary: teamSummary,
         gameInfo: gameSummary,
         originalTeamData: teamSummary,
-        orignalSnapCounts: snapCounts,
+        orignalSnapCounts: activePlayerList,
         originalGameInfo: gameSummary
     })
 }
@@ -80,8 +87,12 @@ loadExternalFiles () {
 
     }
     filterTeam (team) {
+        let updatedTeam = team
+        if(this.state.team !== 'ALL') {
+            updatedTeam = 'ALL'
+        }
         this.setState({
-            team: team
+            team: updatedTeam
         })
     }
 
@@ -260,7 +271,8 @@ loadExternalFiles () {
                 {this.state.gameInfo ? 
                 <>
                 <GameSummary gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary} updateTeamData = {this.updateTeamData}
-                filterTeam = {this.filterTeam}/>
+                filterTeam = {this.filterTeam}
+                team = {this.state.team}/>
                 <h1>Snap Counts</h1>
 
                 {/* I think plan is to set state to one of these and then filter based on that  */}
@@ -270,11 +282,11 @@ loadExternalFiles () {
                 onChange = {() => this.toggleDraftkings()}/>
                 </label>
                 <br />
-                <label htmlFor="active">
+                {/* <label htmlFor="active">
                     Active:
                 <Switch offLabel="Off" onLabel="On" id={'active'}
                 onChange = {() => this.toggleActive()}/>
-                </label>
+                </label> */}
                 <button className = 'btn' onClick = {() => this.setPositions('FLEX')}>Flex</button>
                 <button className = 'btn' onClick = {() => this.setPositions('WR')}>WR</button>
                 <button className = 'btn' onClick = {() => this.setPositions('RB')}>RB</button>

@@ -37,7 +37,7 @@ class GameSummary extends Component {
                             <div key = {game.Home}>
                             {/* <Game gameInfo = {game} home = {homeData} away = {awayData} updateTeamData = {this.props.updateTeamData}/> */}
                             <GameCard gameInfo = {game} home = {homeData} away = {awayData} updateTeamData = {this.props.updateTeamData}
-                            filterTeam = {this.props.filterTeam} />
+                            filterTeam = {this.props.filterTeam} team = {this.props.team} />
                         </div>
                     )
                 })}

@@ -72,7 +72,7 @@ class SingleGameSummary extends Component {
                         {(Number(this.state.homeTotalRushPerc) * 100).toFixed(0)}
                     </div>
                     <div className = 'col s2'>
-                            <button onClick = {() => this.props.filterTeam(this.props.Home)}>Add</button>
+                            <button onClick = {() => this.props.filterTeam(this.props.Home)}>{this.props.team === 'ALL' ? 'Add' : "Clear"}</button>
                     </div>
                 </div>
                 <div className = 'row'> 
@@ -101,7 +101,7 @@ class SingleGameSummary extends Component {
                         {(Number(this.state.awayTotalRushPerc) * 100).toFixed(0)}
                     </div>
                     <div className = 'col s2'>
-                            <button onClick = {() => this.props.filterTeam(this.props.Away)}>Add</button>
+                            <button onClick = {() => this.props.filterTeam(this.props.Away)}>{this.props.team === 'ALL' ? 'Add' : "Clear"}</button>
                     </div>
                 </div>
                                     
