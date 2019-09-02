@@ -33,6 +33,15 @@ class Players extends Component {
         } else {
          playerList = this.props.snapCounts
         }
+
+        let filteredPlayerList = []
+        if (this.props.team === 'ALL') {
+            filteredPlayerList = playerList
+        } else {
+            filteredPlayerList = playerList.filter((players) => {
+                return players.Team === this.props.team
+            })
+        }
         
 
         return(
@@ -81,7 +90,7 @@ class Players extends Component {
             //    </tbody>
             // </table>
     <div className = 'row'>
-        {playerList.map((player) => {
+        {filteredPlayerList.map((player) => {
             const playerTeamData = this.props.teamSummary.find((team) => {
                 return team.Team === player.Team
             })
@@ -96,6 +105,7 @@ class Players extends Component {
                     <Player snapCounts = {player} teamData = {playerTeamData}
                     updatePlayerData = {this.props.updatePlayerData}
                     originalPlayer = {originalSnaps}
+                    deletePlayer = {this.props.deletePlayer}
                     />
         
                 )
@@ -107,6 +117,7 @@ class Players extends Component {
                             <Player snapCounts = {player} teamData = {playerTeamData}
                             updatePlayerData = {this.props.updatePlayerData}
                             originalPlayer = {originalSnaps}
+                            deletePlayer = {this.props.deletePlayer}
                             />
                             
                         
@@ -120,6 +131,7 @@ class Players extends Component {
                         <Player snapCounts = {player} teamData = {playerTeamData}
                         updatePlayerData = {this.props.updatePlayerData}
                         originalPlayer = {originalSnaps}
+                        deletePlayer = {this.props.deletePlayer}
                         />
                          
                     )

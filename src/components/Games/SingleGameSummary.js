@@ -39,6 +39,9 @@ class SingleGameSummary extends Component {
                                 value={this.props.homeSnaps}
                             />
                     </div>
+                    <div className = 'col s2'>
+                            <button onClick = {() => this.props.filterTeam(this.props.Home)}>Add</button>
+                    </div>
                 </div>
                 <div className = 'row'> 
                     <div className = 'col s3'>{this.props.Away}
@@ -58,6 +61,9 @@ class SingleGameSummary extends Component {
                                 handleChange={this.props.handleChange}
                                 value={this.props.awaySnaps}
                             />
+                    </div>
+                    <div className = 'col s2'>
+                            <button onClick = {() => this.props.filterTeam(this.props.Away)}>Add</button>
                     </div>
                 </div>
                                     

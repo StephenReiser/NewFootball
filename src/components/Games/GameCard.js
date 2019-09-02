@@ -122,7 +122,8 @@ class GameCard extends Component {
                         // FRONT PAGE - PROBABLY SHOULD BE ITS OWN COMPONENT
 
 
-                        <SingleGameSummary handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} homescore={this.state.homescore} homeSnaps = {this.state.homeSnaps} awayscore = {this.state.awayscore} awaySnaps = {this.state.awaySnaps} Home = {this.props.gameInfo.Home} Away = {this.props.gameInfo.Away}/>
+                        <SingleGameSummary handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} homescore={this.state.homescore} homeSnaps = {this.state.homeSnaps} awayscore = {this.state.awayscore} awaySnaps = {this.state.awaySnaps} Home = {this.props.gameInfo.Home} Away = {this.props.gameInfo.Away}
+                        filterTeam = {this.props.filterTeam}/>
                     
                     }
                         

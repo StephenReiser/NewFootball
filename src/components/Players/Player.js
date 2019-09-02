@@ -74,7 +74,7 @@ class Player extends Component {
     componentWillReceiveProps(props) 
    
 {
-    console.log(props)
+    // console.log(props)
     this.setState({
         snapPercent: props.snapCounts.SnapPercent,
         snapPerRoute: props.snapCounts.SnapPerRoute,
@@ -115,7 +115,7 @@ class Player extends Component {
         newPlayer.RushTdPerc = this.state.rushTdPerc
         newPlayer.ProjPts = points
         newPlayer.DKValue = value
-        console.log(newPlayer)
+        // console.log(newPlayer)
         this.props.updatePlayerData(newPlayer)
 
         }
@@ -316,6 +316,7 @@ class Player extends Component {
         <button onClick = {() => this.showDetails()}>{this.state.details ? "Player Summary" : "Player Details"}</button>
         <button onClick = {() => this.undoButton()}>Undo</button>
         <button onClick = {() => this.handleSubmit()}>Save</button>
+        <button onClick = {() => this.props.deletePlayer(this.props.snapCounts.Player)}>Delete Player</button>
         
         </div>
         )

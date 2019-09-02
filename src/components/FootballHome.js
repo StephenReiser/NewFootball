@@ -18,6 +18,7 @@ class FootballHome extends Component {
             teamSummary: [],
             positions: 'ALL',
             draftKings: false,
+            team: 'ALL'
             
         }
         this.testButton = this.testButton.bind(this)
@@ -28,14 +29,17 @@ class FootballHome extends Component {
         this.sortProjPoints = this.sortProjPoints.bind(this)
         this.toggleDraftkings = this.toggleDraftkings.bind(this)
         this.sortPriceValue = this.sortPriceValue.bind(this)
-
+        this.deletePlayer = this.deletePlayer.bind(this)
+        this.sumPlays = this.sumPlays.bind(this)
+        this.filterTeam = this.filterTeam.bind(this)
     }
     componentDidMount() {
        this.loadExternalFiles()
-
+       
         
     }
 loadExternalFiles () {
+    // this.sumPlays(teamSummary, snapCounts)
     this.setState({
         snapCounts: snapCounts,
         teamSummary: teamSummary,
@@ -67,6 +71,29 @@ loadExternalFiles () {
         })
 
     }
+    filterTeam (team) {
+        this.setState({
+            team: team
+        })
+    }
+
+    sumPlays(teamData, playerData) {
+        teamData.forEach(element => {
+            element.PassPlays = 0
+            for (let i = 0; i < playerData.length; i++) {
+                if (element.Team === 'HOU') {
+                    const playerPassPlays = Number((Number(element.Snaps)* Number(playerData[i].SnapPercent) / 100 * Number(playerData[i].TgtPerRoute)* Number(playerData[i].TgtPerRoute)).toFixed(1))
+                    console.log(playerPassPlays)
+                    element.PassPlays = (element.PassPlays + playerPassPlays)
+                    console.log(element.PassPlays)
+                }
+            }
+        });
+    }
+
+
+
+
     updatePlayerData (newPlayer) {
         const copyPlayerInfo = [...this.state.snapCounts]
         
@@ -120,13 +147,29 @@ loadExternalFiles () {
             snapCounts: sortedSnaps
         })
     }
+
+    deletePlayer(playerName) {
+        const copyPlayerInfo = [...this.state.snapCounts]
+        
+
+        const playerIndex = this.state.snapCounts.findIndex(player => player.Player === playerName )
+
+        copyPlayerInfo.splice(playerIndex,1)
+        
+        this.setState({
+            snapCounts: copyPlayerInfo
+        })
+        // console.log(player)
+
+    }
     render() {
         return(
             <div>
                 
                 {this.state.gameInfo ? 
                 <>
-                <GameSummary gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary} updateTeamData = {this.updateTeamData}/>
+                <GameSummary gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary} updateTeamData = {this.updateTeamData}
+                filterTeam = {this.filterTeam}/>
                 <h1>Snap Counts</h1>
 
                 {/* I think plan is to set state to one of these and then filter based on that  */}
@@ -157,6 +200,8 @@ loadExternalFiles () {
             orignalSnapCounts = {this.state.orignalSnapCounts}
             positions = {this.state.positions}
             draftKings = {this.state.draftKings}
+            deletePlayer = {this.deletePlayer}
+            team = {this.state.team}
             />
             {/* <button onClick = {() => this.testButton()}>Test Butotn</button> */}
                  </>
