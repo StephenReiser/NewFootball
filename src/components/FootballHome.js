@@ -327,10 +327,27 @@ loadExternalFiles () {
         });
       };
     render() {
+        let filteredPlayerList = []
+        if (this.state.team === 'ALL') {
+            filteredPlayerList = this.state.playerSnapCounts
+        } else {
+            filteredPlayerList = this.state.playerSnapCounts.filter((players) => {
+                return players.Team === this.state.team
+            })
+        }
+
+        let playerList = []
+        if (this.state.draftKings) {
+         playerList = filteredPlayerList.filter((originalPlayer) => {
+            return originalPlayer.DKSalary !== "0"
+        })
+        } else {
+         playerList = filteredPlayerList
+        }
 
         const indexOfLastPlayer = this.state.offset * 32;
         const indexOfFirstPlayer = indexOfLastPlayer - 32;
-        const currentPlayers = this.state.playerSnapCounts.slice(indexOfFirstPlayer, indexOfLastPlayer);
+        const currentPlayers = playerList.slice(indexOfFirstPlayer, indexOfLastPlayer);
         return(
             <div>
                 <button className = 'btn' onClick = {() => this.saveData()}>Save Data</button>

@@ -24,35 +24,48 @@ class Players extends Component {
     //     })
         
     // }
+
+    componentDidMount () {
+        this.setState({
+            playerList: this.props.playerSnapCounts
+        }
+        )
+    }
+    componentWillReceiveProps (props) {
+        console.log(props)
+        this.setState({
+            playerList: props.playerSnapCounts
+        }) 
+    }
     render() {
-        let playerList = []
-        if (this.props.draftKings) {
-         playerList = this.props.playerSnapCounts.filter((originalPlayer) => {
-            return originalPlayer.DKSalary !== "0"
-        })
-        } else {
-         playerList = this.props.playerSnapCounts
-        }
+        // let playerList = []
+        // if (this.props.draftKings) {
+        //  playerList = this.props.playerSnapCounts.filter((originalPlayer) => {
+        //     return originalPlayer.DKSalary !== "0"
+        // })
+        // } else {
+        //  playerList = this.props.playerSnapCounts
+        // }
 
-        let filteredPlayerList = []
-        if (this.props.team === 'ALL') {
-            filteredPlayerList = playerList
-        } else {
-            filteredPlayerList = playerList.filter((players) => {
-                return players.Team === this.props.team
-            })
-        }
+        // let filteredPlayerList = []
+        // if (this.props.team === 'ALL') {
+        //     filteredPlayerList = playerList
+        // } else {
+        //     filteredPlayerList = playerList.filter((players) => {
+        //         return players.Team === this.props.team
+        //     })
+        // }
 
-        let activePlayerList = []
-        if (this.props.active) {
-            activePlayerList = filteredPlayerList.filter((originalPlayer) => {
-                return originalPlayer.Active === "Active"
+        // let activePlayerList = []
+        // if (this.props.active) {
+        //     activePlayerList = filteredPlayerList.filter((originalPlayer) => {
+        //         return originalPlayer.Active === "Active"
                 
-           })
-           } else {
-            activePlayerList = filteredPlayerList
+        //    })
+        //    } else {
+        //     activePlayerList = filteredPlayerList
 
-           }
+        //    }
         
         //    this.props.sumPlays(this.props.teamSummary, activePlayerList)
         //    console.log('playerlist', activePlayerList)
@@ -102,7 +115,7 @@ class Players extends Component {
             //    </tbody>
             // </table>
     <div className = 'row'>
-        {activePlayerList.map((player) => {
+        {this.state.playerList.map((player) => {
             const playerTeamData = this.props.teamSummary.find((team) => {
                 return team.Team === player.Team
             })
