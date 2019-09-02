@@ -39,7 +39,7 @@ class FootballHome extends Component {
         
     }
 loadExternalFiles () {
-    // this.sumPlays(teamSummary, snapCounts)
+    this.sumPlays(teamSummary, snapCounts)
     this.setState({
         snapCounts: snapCounts,
         teamSummary: teamSummary,
@@ -80,15 +80,18 @@ loadExternalFiles () {
     sumPlays(teamData, playerData) {
         teamData.forEach(element => {
             element.PassPlays = 0
-            for (let i = 0; i < playerData.length; i++) {
-                if (element.Team === 'HOU') {
-                    const playerPassPlays = Number((Number(element.Snaps)* Number(playerData[i].SnapPercent) / 100 * Number(playerData[i].TgtPerRoute)* Number(playerData[i].TgtPerRoute)).toFixed(1))
-                    console.log(playerPassPlays)
-                    element.PassPlays = (element.PassPlays + playerPassPlays)
-                    console.log(element.PassPlays)
+            element.RushPlays = 0
+            playerData.forEach(player => {
+                if (player.Team === element.Team) {
+                const playerPassPlays = Number((Number(element.Snaps)* Number(player.SnapPercent) / 100 * Number(player.TgtPerRoute)* Number(player.SnapPerRoute)).toFixed(1))
+                // console.log(player.Player, playerPassPlays)
+                const playerRushPlays =  Number((Number(element.Snaps)* Number(player.SnapPercent) / 100 * Number(player.RushPercent) / 100).toFixed(1))
+                element.RushPlays += Number(playerRushPlays.toFixed(1))
+                element.PassPlays += Number(playerPassPlays.toFixed(.1))
                 }
-            }
-        });
+            })
+        console.log(element)
+    });
     }
 
 
