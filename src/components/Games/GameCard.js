@@ -20,13 +20,26 @@ class GameCard extends Component {
             awayPassEff: 0,
             awayRushTdPerc: 0,
             awayPassTdPerc: 0,
-            details: false
+            details: false,
+            homeTotalPassPerc: 0,
+            awayTotalPassPerc: 0,
+            homeTotalRushPerc: 0,
+            awayTotalRushPerc: 0
 
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this)
     }
+  componentWillReceiveProps (props) {
+      this.setState({
+        awayTotalPassPerc: props.away.TotalTeamPassPlays / props.away.PassPlays,
+        homeTotalRushPerc: props.home.TotalTeamRushPlays / props.home.RushPlays,
+        awayTotalRushPerc: props.away.TotalTeamRushPlays / props.away.RushPlays,
+        homeTotalPassPerc: props.home.TotalTeamPassPlays / props.home.PassPlays,
+
+      })
+  }
     componentDidMount(){
         // console.log(this.props.gameInfo)
         // console.log(this.props.home)
@@ -43,6 +56,10 @@ class GameCard extends Component {
             awayPassEff: this.props.away.PassEff,
             awayRushTdPerc: this.props.away.RushTdPerc,
             awayPassTdPerc: this.props.away.PassTdPerc,
+            awayTotalPassPerc: this.props.away.TotalTeamPassPlays / this.props.away.PassPlays,
+            homeTotalRushPerc: this.props.home.TotalTeamRushPlays / this.props.home.RushPlays,
+            awayTotalRushPerc: this.props.away.TotalTeamRushPlays / this.props.away.RushPlays,
+            homeTotalPassPerc: this.props.home.TotalTeamPassPlays / this.props.home.PassPlays,
 
 
 
@@ -115,6 +132,7 @@ class GameCard extends Component {
                             awayRushTdPerc = {this.state.awayRushTdPerc}
                             awayPassTdPerc = {this.state.awayPassTdPerc}
                             handleChange = {this.handleChange}
+                            
                         />
                         
                     : 
@@ -123,7 +141,13 @@ class GameCard extends Component {
 
 
                         <SingleGameSummary handleChange = {this.handleChange} handleSubmit = {this.handleSubmit} homescore={this.state.homescore} homeSnaps = {this.state.homeSnaps} awayscore = {this.state.awayscore} awaySnaps = {this.state.awaySnaps} Home = {this.props.gameInfo.Home} Away = {this.props.gameInfo.Away}
-                        filterTeam = {this.props.filterTeam}/>
+                        filterTeam = {this.props.filterTeam}
+                        homeTotalPassPerc = {this.state.homeTotalPassPerc}
+                        awayTotalPassPerc = {this.state.awayTotalPassPerc}
+                        homeTotalRushPerc = {this.state.homeTotalRushPerc}
+                        awayTotalRushPerc = {this.state.awayTotalRushPerc}
+                        
+                        />
                     
                     }
                         

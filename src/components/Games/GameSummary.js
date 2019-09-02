@@ -6,6 +6,9 @@ class GameSummary extends Component {
     componentDidMount() {
         // console.log(this.props)
     }
+    componentWillReceiveProps(props) {
+        console.log('summmary', props)
+    }
     render() {
         return(
             <div className = 'row'>

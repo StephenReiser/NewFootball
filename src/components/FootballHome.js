@@ -13,7 +13,7 @@ class FootballHome extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            snapCounts: [],
+            playerSnapCounts: [],
             // gameInfo: [],
             teamSummary: [],
             positions: 'ALL',
@@ -32,6 +32,10 @@ class FootballHome extends Component {
         this.deletePlayer = this.deletePlayer.bind(this)
         this.sumPlays = this.sumPlays.bind(this)
         this.filterTeam = this.filterTeam.bind(this)
+        this.fullUpdatePlayerData = this.fullUpdatePlayerData.bind(this)
+        this.saveData = this.saveData.bind(this)
+        this.loadData = this.loadData.bind(this)
+        this.resetData = this.resetData.bind(this)
     }
     componentDidMount() {
        this.loadExternalFiles()
@@ -41,7 +45,7 @@ class FootballHome extends Component {
 loadExternalFiles () {
     this.sumPlays(teamSummary, snapCounts)
     this.setState({
-        snapCounts: snapCounts,
+        playerSnapCounts: snapCounts,
         teamSummary: teamSummary,
         gameInfo: gameSummary,
         originalTeamData: teamSummary,
@@ -79,36 +83,79 @@ loadExternalFiles () {
 
     sumPlays(teamData, playerData) {
         teamData.forEach(element => {
-            element.PassPlays = 0
-            element.RushPlays = 0
+            element.TotalTeamPassPlays = 0
+            element.TotalTeamRushPlays = 0
             playerData.forEach(player => {
                 if (player.Team === element.Team) {
                 const playerPassPlays = Number((Number(element.Snaps)* Number(player.SnapPercent) / 100 * Number(player.TgtPerRoute)* Number(player.SnapPerRoute)).toFixed(1))
                 // console.log(player.Player, playerPassPlays)
                 const playerRushPlays =  Number((Number(element.Snaps)* Number(player.SnapPercent) / 100 * Number(player.RushPercent) / 100).toFixed(1))
-                element.RushPlays += Number(playerRushPlays.toFixed(1))
-                element.PassPlays += Number(playerPassPlays.toFixed(.1))
+                element.TotalTeamRushPlays += Number(playerRushPlays.toFixed(1))
+                element.TotalTeamPassPlays += Number(playerPassPlays.toFixed(.1))
                 }
             })
         console.log(element)
     });
     }
 
+    fullUpdatePlayerData (newPlayer) {
+        
+        const copyPlayerInfo = [...this.state.playerSnapCounts]
+        const copyTeamSummary = [...this.state.teamSummary]
+        // const copyOriginalPlayerInfo = [...this.state.orignalSnapCounts]
+        // const oldIndex = this.state.orignalSnapCounts.findIndex(player => player.Player === newPlayer.Player )
+        // const oldPlayer = copyOriginalPlayerInfo[oldIndex]
+        const teamIndex = this.state.teamSummary.findIndex(team => team.Team === newPlayer.Team)
+        
 
+        const playerIndex = this.state.playerSnapCounts.findIndex(player => player.Player === newPlayer.Player )
+
+        
+        // console.log(this.state.orignalSnapCounts[3])
+        // // calculate points for newPlayer
+        // const newPassPoints = Number((Number(copyTeamSummary[teamIndex].Snaps)* Number(newPlayer.SnapPercent) / 100 * Number(newPlayer.TgtPerRoute)* Number(newPlayer.SnapPerRoute)))
+        // // console.log(player.Player, playerPassPlays)
+        // const newRushPoints =  Number((Number(copyTeamSummary[teamIndex].Snaps)* Number(newPlayer.SnapPercent) / 100 * Number(newPlayer.RushPercent) / 100))
+
+        // // calculate for current numbers
+        // const oldPassPoints = Number((Number(copyTeamSummary[teamIndex].Snaps)* Number(oldPlayer.SnapPercent) / 100 * Number(oldPlayer.TgtPerRoute)* Number(oldPlayer.SnapPerRoute)))
+        // // console.log(player.Player, playerPassPlays)
+        // const oldRushPoints =  Number((Number(copyTeamSummary[teamIndex].Snaps)* Number(oldPlayer.SnapPercent) / 100 * Number(oldPlayer.RushPercent) / 100))
+
+
+        // console.log(newPassPoints, oldPassPoints)
+        // // currentTeam.TotalTeamPassPlays -= 10
+        // // currentTeam.TotalTeamPassPlays += 10 
+        // // currentTeam.TotalTeamRushPlays -= 10
+        // // currentTeam.TotalTeamRushPlays += 50
+        // console.log('passpoints',  Number((Number(copyTeamSummary[teamIndex].Snaps)* Number(oldPlayer.SnapPercent) / 100 * Number(oldPlayer.TgtPerRoute)* Number(oldPlayer.SnapPerRoute))))
+        // copyTeamSummary[teamIndex].TotalTeamRushPlays += (newPassPoints + newRushPoints - oldPassPoints - oldRushPoints)
+        
+        copyPlayerInfo[playerIndex] = newPlayer
+
+        this.setState((prevState, props) => {
+            return{
+            playerSnapCounts: copyPlayerInfo,
+            
+            }
+        })
+        this.sumPlays(this.state.teamSummary, this.state.playerSnapCounts)
+    }
 
 
     updatePlayerData (newPlayer) {
-        const copyPlayerInfo = [...this.state.snapCounts]
-        
+        const copyPlayerInfo = [...this.state.playerSnapCounts]
+       
 
-        const playerIndex = this.state.snapCounts.findIndex(player => player.Player === newPlayer.Player )
+        const playerIndex = this.state.playerSnapCounts.findIndex(player => player.Player === newPlayer.Player )
 
-        
         copyPlayerInfo[playerIndex] = newPlayer
-        
+       
+        console.log('update player ran')
 
         this.setState({
-            snapCounts: copyPlayerInfo
+            playerSnapCounts: copyPlayerInfo,
+            
         })
     }
     testButton () {
@@ -122,19 +169,19 @@ loadExternalFiles () {
     }
 
     sortPoints () {
-        const sortedSnaps = this.state.snapCounts.sort((obj1, obj2) => {
+        const sortedSnaps = this.state.playerSnapCounts.sort((obj1, obj2) => {
             return obj2.TopTwentyFive - obj1.TopTwentyFive
         })
         this.setState({
-            snapCounts: sortedSnaps
+            playerSnapCounts: sortedSnaps
         })
     }
     sortProjPoints () {
-        const sortedSnaps = this.state.snapCounts.sort((obj1, obj2) => {
+        const sortedSnaps = this.state.playerSnapCounts.sort((obj1, obj2) => {
             return obj2.ProjPts - obj1.ProjPts
         })
         this.setState({
-            snapCounts: sortedSnaps
+            playerSnapCounts: sortedSnaps
         })
     }
     toggleDraftkings () {
@@ -143,32 +190,54 @@ loadExternalFiles () {
         })
     }
     sortPriceValue (option) {
-        const sortedSnaps = this.state.snapCounts.sort((obj1, obj2) => {
+        const sortedSnaps = this.state.playerSnapCounts.sort((obj1, obj2) => {
             return obj2[option] - obj1[option]
         })
         this.setState({
-            snapCounts: sortedSnaps
+            playerSnapCounts: sortedSnaps
         })
     }
 
     deletePlayer(playerName) {
-        const copyPlayerInfo = [...this.state.snapCounts]
+        const copyPlayerInfo = [...this.state.playerSnapCounts]
         
 
-        const playerIndex = this.state.snapCounts.findIndex(player => player.Player === playerName )
+        const playerIndex = this.state.playerSnapCounts.findIndex(player => player.Player === playerName )
 
         copyPlayerInfo.splice(playerIndex,1)
         
         this.setState({
-            snapCounts: copyPlayerInfo
+            playerSnapCounts: copyPlayerInfo
         })
         // console.log(player)
 
     }
+    saveData () {
+        localStorage.setItem('snapCounts', JSON.stringify(this.state.playerSnapCounts))
+        localStorage.setItem('gameInfo', JSON.stringify(this.state.gameInfo))
+        localStorage.setItem('teamSummary', JSON.stringify(this.state.teamSummary))
+    }
+    resetData() {
+        this.loadExternalFiles()
+    }
+    loadData() {
+        console.log('...loading')
+        const loadedSnapCounts = JSON.parse(localStorage.getItem('snapCounts'))
+        const loadedGameInfo = JSON.parse(localStorage.getItem('gameInfo'))
+        const loadedTeamSummary = JSON.parse(localStorage.getItem('teamSummary'))
+        // console.log(loadedSnapCounts)
+        this.setState({
+            playerSnapCounts: loadedSnapCounts,
+            teamSummary: loadedTeamSummary,
+            gameInfo: loadedGameInfo
+        })
+    }
     render() {
         return(
             <div>
-                
+                <button className = 'btn' onClick = {() => this.saveData()}>Save Data</button>
+                <button className = 'btn' onClick = {() => this.resetData()}>Reset Data</button>
+                <button className = 'btn' onClick = {() => this.loadData()}>Load Data</button>
                 {this.state.gameInfo ? 
                 <>
                 <GameSummary gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary} updateTeamData = {this.updateTeamData}
@@ -198,13 +267,14 @@ loadExternalFiles () {
                      </> : null}
                 
             
-            <Players snapCounts= {this.state.snapCounts} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
+            <Players playerSnapCounts= {this.state.playerSnapCounts} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
             updatePlayerData = {this.updatePlayerData}
             orignalSnapCounts = {this.state.orignalSnapCounts}
             positions = {this.state.positions}
             draftKings = {this.state.draftKings}
             deletePlayer = {this.deletePlayer}
             team = {this.state.team}
+            fullUpdatePlayerData = {this.fullUpdatePlayerData}
             />
             {/* <button onClick = {() => this.testButton()}>Test Butotn</button> */}
                  </>

@@ -27,11 +27,11 @@ class Players extends Component {
     render() {
         let playerList = []
         if (this.props.draftKings) {
-         playerList = this.props.snapCounts.filter((originalPlayer) => {
+         playerList = this.props.playerSnapCounts.filter((originalPlayer) => {
             return originalPlayer.DKSalary !== "0"
         })
         } else {
-         playerList = this.props.snapCounts
+         playerList = this.props.playerSnapCounts
         }
 
         let filteredPlayerList = []
@@ -106,6 +106,8 @@ class Players extends Component {
                     updatePlayerData = {this.props.updatePlayerData}
                     originalPlayer = {originalSnaps}
                     deletePlayer = {this.props.deletePlayer}
+                    fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
+                    currentSnapCounts = {player}
                     />
         
                 )
@@ -118,6 +120,9 @@ class Players extends Component {
                             updatePlayerData = {this.props.updatePlayerData}
                             originalPlayer = {originalSnaps}
                             deletePlayer = {this.props.deletePlayer}
+                            fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
+                            currentSnapCounts = {player}
+
                             />
                             
                         
@@ -132,6 +137,8 @@ class Players extends Component {
                         updatePlayerData = {this.props.updatePlayerData}
                         originalPlayer = {originalSnaps}
                         deletePlayer = {this.props.deletePlayer}
+                        fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
+                        currentSnapCounts = {player}
                         />
                          
                     )

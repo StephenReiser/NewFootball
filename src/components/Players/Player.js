@@ -28,7 +28,7 @@ class Player extends Component {
         
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({
             snapPercent: this.props.snapCounts.SnapPercent,
             snapPerRoute: this.props.snapCounts.SnapPerRoute,
@@ -36,10 +36,11 @@ class Player extends Component {
             catchPerc: this.props.snapCounts.CatchPerc,
             rushPerc: this.props.snapCounts.RushPercent,
             recTdPerc: this.props.snapCounts.RecTDPerc,
-            rushTdPerc: this.props.snapCounts.RushTdPerc
+            rushTdPerc: this.props.snapCounts.RushTdPerc,
+            originalPlayerData: this.props.snapCounts
         })
 
-
+// console.log('mounting comopnent')
         // THIS HAS GOT TO BE BAD - BUT IT IS SETTING THE POINTS ONCE WE LOAD THE DATA - ALSO ROUNDING IS SLIGHTLY DIFFERENT THAN WHAT IM CALCULATING BELOW
         const catches = ((Number(this.props.snapCounts.SnapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.props.snapCounts.SnapPerRoute) * Number(this.props.snapCounts.TgtPerRoute) * Number(this.props.snapCounts.CatchPerc))
         
@@ -71,9 +72,8 @@ class Player extends Component {
         
     }
 
-    componentWillReceiveProps(props) 
-   
-{
+    componentWillReceiveProps(props) {
+        console.log('receiving props')
     // console.log(props)
     this.setState({
         snapPercent: props.snapCounts.SnapPercent,
@@ -91,7 +91,7 @@ class Player extends Component {
 
     handleSubmit() {
         //   event.preventDefault()
-
+        
         const catches = ((Number(this.state.snapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.state.snapPerRoute) * Number(this.state.tgtPerRoute) * Number(this.state.catchPerc))
         
         const receivingYards =  Number(this.props.snapCounts.YPRR) * Number(this.props.teamData.PassEff) * (Number(this.state.snapPercent) * Number(this.props.teamData.Snaps) / 100) * Number(this.state.snapPerRoute)
@@ -104,7 +104,8 @@ class Player extends Component {
 
         const points = (catches + (receivingYards + rushingPoints) / 10 + (rushTD + passTD) * 6).toFixed(1)
         const value = (points/(Number(this.props.snapCounts.DKSalary)/1000)).toFixed(1)
-
+        
+        // const oldPlayer = this.props.snapCounts
         let newPlayer = this.props.snapCounts
         newPlayer.SnapPercent = this.state.snapPercent
         newPlayer.SnapPerRoute = this.state.snapPerRoute
@@ -116,7 +117,7 @@ class Player extends Component {
         newPlayer.ProjPts = points
         newPlayer.DKValue = value
         // console.log(newPlayer)
-        this.props.updatePlayerData(newPlayer)
+        this.props.fullUpdatePlayerData(newPlayer)
 
         }
     showDetails () {
