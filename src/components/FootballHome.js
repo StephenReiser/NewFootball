@@ -369,8 +369,8 @@ loadExternalFiles () {
          playerList = filteredPlayerList
         }
 
-        const indexOfLastPlayer = this.state.offset * 32;
-        const indexOfFirstPlayer = indexOfLastPlayer - 32;
+        const indexOfLastPlayer = this.state.offset * 500;
+        const indexOfFirstPlayer = indexOfLastPlayer - 500;
         const currentPlayers = playerList.slice(indexOfFirstPlayer, indexOfLastPlayer);
         return(
             <div>
