@@ -424,7 +424,7 @@ loadExternalFiles () {
                      </> : null}
                 
                      <div className="commentBox">
-                         <ReactPaginate
+                         {/* <ReactPaginate
                        previousLabel={'previous'}
                        nextLabel={'next'}
                        breakLabel={'...'}
@@ -436,7 +436,7 @@ loadExternalFiles () {
                        containerClassName={'pagination'}
                        subContainerClassName={'pages pagination'}
                        activeClassName={'active'}
-                     />
+                     /> */}
             <Players playerSnapCounts= {currentPlayers} gameInfo = {this.state.gameInfo} teamSummary = {this.state.teamSummary}
             updatePlayerData = {this.updatePlayerData}
             orignalSnapCounts = {this.state.orignalSnapCounts}
