@@ -133,6 +133,7 @@ class Players extends Component {
                     deletePlayer = {this.props.deletePlayer}
                     fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
                     currentSnapCounts = {player}
+                    addToCompare = {this.props.addToCompare}
                     />
         </div>
                 )
@@ -147,7 +148,7 @@ class Players extends Component {
                             deletePlayer = {this.props.deletePlayer}
                             fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
                             currentSnapCounts = {player}
-
+                            addToCompare = {this.props.addToCompare}
                             />
                             </div>
                         
@@ -164,6 +165,7 @@ class Players extends Component {
                         deletePlayer = {this.props.deletePlayer}
                         fullUpdatePlayerData = {this.props.fullUpdatePlayerData}
                         currentSnapCounts = {player}
+                        addToCompare = {this.props.addToCompare}
                         />
                          </div>
                     )

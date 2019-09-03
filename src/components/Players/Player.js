@@ -349,6 +349,7 @@ class Player extends Component {
         <button onClick = {() => this.undoButton()}>Undo</button>
         <button onClick = {() => this.handleSubmit()}>Save</button>
         <button onClick = {() => this.props.deletePlayer(this.props.snapCounts.Player)}>Delete Player</button>
+        <button onClick = {() => this.props.addToCompare(this.props.snapCounts.Player)}>compare</button>
         
         {/* // </div> */}
         </>

@@ -70,3 +70,7 @@ th {
 .playerHeader, .playerSalary, .playerPts {
     font-size: 1.2rem
 }
+
+.modalBox {
+    color: black
+}

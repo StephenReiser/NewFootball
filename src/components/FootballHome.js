@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import snapCounts from '../csv/2018SnapCounts'
 import gameSummary from '../csv/2019GameSummary'
 import teamSummary from '../csv/2019TeamSummary'
-import { Switch } from 'react-materialize'
+import { Switch, Modal, Button } from 'react-materialize'
 import GameSummary from './Games/GameSummary'
 import Players from './Players/Players'
+import ComparePlayers from './Players/ComparePlayers'
 import ReactPaginate from 'react-paginate';
+
 
 
 
@@ -24,6 +26,7 @@ class FootballHome extends Component {
             active: false,
             fullPlayerList: [],
             offset: 1,
+            compareNames: []
             
         }
         this.testButton = this.testButton.bind(this)
@@ -43,6 +46,7 @@ class FootballHome extends Component {
         this.resetData = this.resetData.bind(this)
         this.toggleActive = this.toggleActive.bind(this)
         this.calculatePoints = this.calculatePoints.bind(this)
+        this.addToCompare = this.addToCompare.bind(this)
     }
     componentDidMount() {
        this.loadExternalFiles()
@@ -71,6 +75,7 @@ loadExternalFiles () {
     })
 }
     
+
 
     updateTeamData (updatedGame, updatedHome, updatedAway) {
         const copyGameInfo = [...this.state.gameInfo]
@@ -326,6 +331,25 @@ loadExternalFiles () {
         //   this.loadCommentsFromServer();
         });
       };
+
+      addToCompare (name) {
+        console.log('adding to compare', name)
+        const newNames =  [...this.state.compareNames]
+        if (this.state.compareNames.length < 3) {
+            newNames.push(name)
+        } else {
+            newNames.splice(0,1)
+            newNames.push(name)
+    
+        }
+    
+        this.setState({
+            compareNames: newNames
+        })
+    }
+
+
+
     render() {
         let filteredPlayerList = []
         if (this.state.team === 'ALL') {
@@ -350,6 +374,17 @@ loadExternalFiles () {
         const currentPlayers = playerList.slice(indexOfFirstPlayer, indexOfLastPlayer);
         return(
             <div>
+                <Modal header="Compare Players" fixedFooter trigger={<Button>Compare Options</Button>}>
+                    <div className = 'row'>
+                    <ComparePlayers compareNames = {this.state.compareNames}
+                    playerSnaps = {this.state.playerSnapCounts}
+                    teamSummary = {this.state.teamSummary}
+                    gameInfo = {this.state.gameInfo}
+                    />
+                    </div>
+                </Modal>
+
+
                 <button className = 'btn' onClick = {() => this.saveData()}>Save Data</button>
                 <button className = 'btn' onClick = {() => this.resetData()}>Reset Data</button>
                 <button className = 'btn' onClick = {() => this.loadData()}>Load Data</button>
@@ -412,6 +447,7 @@ loadExternalFiles () {
             fullUpdatePlayerData = {this.fullUpdatePlayerData}
             active = {this.state.active}
             sumPlays = {this.sumPlays}
+            addToCompare = {this.addToCompare}
             />
         </div>
             {/* <button onClick = {() => this.testButton()}>Test Butotn</button> */}
