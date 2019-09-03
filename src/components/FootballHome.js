@@ -47,6 +47,7 @@ class FootballHome extends Component {
         this.toggleActive = this.toggleActive.bind(this)
         this.calculatePoints = this.calculatePoints.bind(this)
         this.addToCompare = this.addToCompare.bind(this)
+        this.sortNumberFire = this.sortNumberFire.bind(this)
     }
     componentDidMount() {
        this.loadExternalFiles()
@@ -252,6 +253,14 @@ loadExternalFiles () {
             playerSnapCounts: sortedSnaps
         })
     }
+    sortNumberFire () {
+        const sortedSnaps = this.state.playerSnapCounts.sort((obj1, obj2) => {
+            return obj2.numberFirePots - obj1.numberFirePots
+        })
+        this.setState({
+            playerSnapCounts: sortedSnaps
+        })
+    }
     sortProjPoints () {
         const sortedSnaps = this.state.playerSnapCounts.sort((obj1, obj2) => {
             return obj2.ProjPts - obj1.ProjPts
@@ -369,9 +378,10 @@ loadExternalFiles () {
          playerList = filteredPlayerList
         }
 
-        const indexOfLastPlayer = this.state.offset * 500;
-        const indexOfFirstPlayer = indexOfLastPlayer - 500;
-        const currentPlayers = playerList.slice(indexOfFirstPlayer, indexOfLastPlayer);
+        // const indexOfLastPlayer = this.state.offset * 500;
+        // const indexOfFirstPlayer = indexOfLastPlayer - 500;
+        // const currentPlayers = playerList.slice(indexOfFirstPlayer, indexOfLastPlayer);
+        const currentPlayers = playerList
         return(
             <div>
                 
@@ -409,6 +419,7 @@ loadExternalFiles () {
                 onChange = {() => this.toggleActive()}/>
                 </label> */}
                 <button className = 'btn' onClick = {() => this.setPositions('FLEX')}>Flex</button>
+                <button className = 'btn' onClick = {() => this.setPositions('QB')}>QB</button>
                 <button className = 'btn' onClick = {() => this.setPositions('WR')}>WR</button>
                 <button className = 'btn' onClick = {() => this.setPositions('RB')}>RB</button>
                 <button className = 'btn' onClick = {() => this.setPositions('TE')}>TE</button>
@@ -416,6 +427,7 @@ loadExternalFiles () {
                 <hr />
                 <button className = 'btn' onClick = {() => this.sortPoints()}>Sort Highest Points</button>
                 <button className = 'btn' onClick = {() => this.sortProjPoints()}>Sort Proj Points</button>
+                <button className = 'btn' onClick = {() => this.sortNumberFire()}>Sort NumberFire</button>
                 <br />
                 {this.state.draftKings ? <>
                 
