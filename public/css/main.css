@@ -74,3 +74,21 @@ th {
 .modalBox {
     color: black
 }
+
+
+/* css to put game boxes in a row */
+
+.gameBoxes{
+    width: 100%;
+    /* height: 120px; */
+    /* background: rgb(100, 100, 100); */
+    white-space: nowrap;
+    overflow: auto;
+}
+.singleGameBox {
+    display: inline-block;
+    /* height: 100px;
+    width: 100px; */
+    /* background: rgb(220, 220, 220); */
+    margin: 10px;
+}

@@ -132,7 +132,7 @@ class GameCard extends Component {
             
         return(
             
-                <div className = 'col m6 s12'>
+                // <div className = 'col m6 s12'>
                     
                     <div className='gamecard'>
                     {
@@ -172,7 +172,7 @@ class GameCard extends Component {
                         <button onClick = {() => this.handleClick()}>{this.state.details ? "Team Summary" : "Team Details"}</button>
                         <button onClick = {() => this.handleSubmit()}>Save</button>
                     </div>
-                </div>
+                // </div>
             
 
         )

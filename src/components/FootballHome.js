@@ -374,15 +374,7 @@ loadExternalFiles () {
         const currentPlayers = playerList.slice(indexOfFirstPlayer, indexOfLastPlayer);
         return(
             <div>
-                <Modal header="Compare Players" fixedFooter trigger={<Button>Compare Options</Button>}>
-                    <div className = 'row'>
-                    <ComparePlayers compareNames = {this.state.compareNames}
-                    playerSnaps = {this.state.playerSnapCounts}
-                    teamSummary = {this.state.teamSummary}
-                    gameInfo = {this.state.gameInfo}
-                    />
-                    </div>
-                </Modal>
+                
 
 
                 <button className = 'btn' onClick = {() => this.saveData()}>Save Data</button>
@@ -394,7 +386,16 @@ loadExternalFiles () {
                 filterTeam = {this.filterTeam}
                 team = {this.state.team}/>
                 <h1>Snap Counts</h1>
-
+                <Modal header="Compare Players" fixedFooter trigger={<Button>Compare Options</Button>}>
+                    <div className = 'row'>
+                    <ComparePlayers compareNames = {this.state.compareNames}
+                    playerSnaps = {this.state.playerSnapCounts}
+                    teamSummary = {this.state.teamSummary}
+                    gameInfo = {this.state.gameInfo}
+                    />
+                    </div>
+                </Modal>
+                <br />
                 {/* I think plan is to set state to one of these and then filter based on that  */}
                 <label htmlFor="draftKings">
                     Draftkings:

@@ -21,7 +21,7 @@ class GameSummary extends Component {
     }
     render() {
         return(
-            <div className = 'row'>
+            <div className = 'gameBoxes'>
                 
                 {this.props.gameInfo.map(game => {
 
@@ -34,7 +34,7 @@ class GameSummary extends Component {
 
                     return(
                         
-                            <div key = {game.Home}>
+                            <div key = {game.Home} className = 'singleGameBox '>
                             {/* <Game gameInfo = {game} home = {homeData} away = {awayData} updateTeamData = {this.props.updateTeamData}/> */}
                             <GameCard gameInfo = {game} home = {homeData} away = {awayData} updateTeamData = {this.props.updateTeamData}
                             filterTeam = {this.props.filterTeam} team = {this.props.team} />
