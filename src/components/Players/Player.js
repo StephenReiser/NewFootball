@@ -192,6 +192,9 @@ class Player extends Component {
         const passTD = (this.state.recTdPerc * this.props.teamData.ExpectedTd * this.props.teamData.PassTdPerc).toFixed(1)
         const totalTD = (Number(rushTD) + Number(passTD)).toFixed(1)
         const projPts = (Number(totalTD) * 6 + Number(catches) + (Number(recYards) + Number(rushYards)) / 10).toFixed(1)
+        const rushAttempts = (this.state.rushPerc / 100 * snaps * this.props.teamData.RushEff).toFixed(1)
+        const rushPerc = (rushAttempts / this.props.teamData.TotalTeamRushPlays * 100).toFixed(1)
+        const targetPerc = (targets/ this.props.teamData.TotalTeamPassPlays * 100 ).toFixed(1)
 
 
         // NEED TO UPDATE ALL THIS SHIT WITH THIS.STATE
@@ -305,6 +308,7 @@ class Player extends Component {
      bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
      topTwentyFive = {this.props.snapCounts.TopTwentyFive}
 
+
      /> 
 : 
     <PlayerCardSummary 
@@ -321,6 +325,9 @@ class Player extends Component {
         bottomTwentyFive = {this.props.snapCounts.BottomTwentyFive}
         topTwentyFive = {this.props.snapCounts.TopTwentyFive}
         handleChange = {this.handleChange}
+        rushAttempts = {rushAttempts}
+        rushPerc = {rushPerc}
+        targetPerc = {targetPerc}
     />
 }
 

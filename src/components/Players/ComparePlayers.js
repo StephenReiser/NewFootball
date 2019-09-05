@@ -60,6 +60,9 @@ class ComparePlayers extends Component {
                     const rushTD = (name.RushTdPerc * playerTeamData.ExpectedTd * playerTeamData.RushTdPerc).toFixed(1)
                     const passTD = (name.RecTDPerc * playerTeamData.ExpectedTd * playerTeamData.PassTdPerc).toFixed(1)
                     const totalTD = (Number(rushTD) + Number(passTD)).toFixed(1)
+                    const rushAttempts = (name.RushPercent / 100 * snaps * Number(playerTeamData.RushEff)).toFixed(1)
+                    const rushPerc = (rushAttempts / Number(playerTeamData.TotalTeamRushPlays) * 100).toFixed(1)
+                    const targetPerc = (targets/ Number(playerTeamData.TotalTeamPassPlays) * 100 ).toFixed(1)
                     return(
                         <div className = 'col s4'>
                         
@@ -76,6 +79,9 @@ class ComparePlayers extends Component {
                             dkValue = {name.DKSalary === '0' ? '0' : name.DKValue}
                             bottomTwentyFive = {name.BottomTwentyFive}
                             topTwentyFive = {name.TopTwentyFive}
+                            rushAttempts = {rushAttempts}
+                            rushPerc = {rushPerc}
+                            targetPerc = {targetPerc}
                             // handleChange = {this.handleChange}
                         />
                         <PlayerChart

@@ -28,14 +28,19 @@ class PlayerCardSummary extends Component {
                 <h5 className = 'playerHeader'>{this.props.name} ({this.props.pos})</h5>
                 <h5 className = 'playerSalary'>{this.props.dkSalary}</h5>
                 <h5 className = 'playerPts'>Proj Pts: {this.props.projPts} DKValue: {this.props.dkValue}</h5>
-                <div>Targets: {this.props.targets}</div>
-                <div>Catches: {this.props.catches}</div>
-                <div>recYards: {this.props.recYards}</div>
-                <div>rushYards: {this.props.rushYards}</div>
-                <div>totalTD: {this.props.totalTD}</div>
+                <div className = 'row'>
+                <div className = 'col s6'>Target%: {this.props.targetPerc}</div>
+                <div className = 'col s6'>Target: {this.props.targets}</div>
+                <div className = 'col s6'>Catch: {this.props.catches}</div>
+                <div className = 'col s6'>recYds: {this.props.recYards}</div>
+                <div className = 'col s6'>RushAtt: {this.props.rushAttempts}</div>
+                <div className = 'col s6'>Rush%: {this.props.rushPerc}</div>
+                <div className = 'col s6'>rushYds: {this.props.rushYards}</div>
+                <div className = 'col s6'>totalTD: {this.props.totalTD}</div>
                 
-                <div>Bottom Range: {this.props.bottomTwentyFive}</div>
-                <div>Top Range: {this.props.topTwentyFive}</div>
+                <div className = 'col s6'>BotRange: {this.props.bottomTwentyFive}</div>
+                <div className = 'col s6'>TopRange: {this.props.topTwentyFive}</div>
+                </div>
                 
             </>
         )
